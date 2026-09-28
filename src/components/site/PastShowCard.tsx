@@ -17,6 +17,12 @@ export function PastShowCard({ show }: { show: PublicPastShow }) {
 
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+      {show.description && (
+        <p className="p-5 pb-4 text-sm text-neutral-600">
+          {show.description}
+        </p>
+      )}
+
       <div className="grid grid-cols-4 gap-0.5 bg-neutral-100">
         <div className="relative col-span-3 aspect-4/3 overflow-hidden bg-neutral-200">
           {cover ? (

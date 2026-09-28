@@ -3,7 +3,7 @@ import { LogoutButton } from "./LogoutButton";
 
 const TABS = [
   { href: "/admin", label: "Próximas fechas" },
-  { href: "/admin/shows-realizados", label: "Shows realizados" },
+  { href: "/admin/shows-realizados", label: "Eventos pasados" },
   { href: "/admin/instagram", label: "Instagram" },
 ];
 

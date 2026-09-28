@@ -31,11 +31,11 @@ export function PastShowsSection() {
   }
 
   return (
-    <section id="shows-realizados" className="bg-white py-24">
+    <section id="eventos-pasados" className="bg-white py-24">
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Shows realizados
+            Eventos pasados
           </h2>
           <p className="mt-3 text-neutral-500">
             Algunos de los últimos eventos producidos por PC

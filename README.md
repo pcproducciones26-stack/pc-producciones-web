@@ -50,12 +50,17 @@ Landing page de la productora de eventos PC, con panel de administración para c
   - ⚠️ **Usar siempre el connection pooler** (`aws-0-us-east-1.pooler.supabase.com:6543`, usuario `postgres.<project-ref>`), **no** la conexión directa (`db.<project-ref>.supabase.co:5432`). La conexión directa de Supabase solo resuelve por IPv6, y las funciones serverless de Vercel no tienen salida IPv6 — la app fallaba con `Can't reach database server` hasta cambiar al pooler.
 - **Dominio**: `pcproducciones.com.ar` / `www.pcproducciones.com.ar` ya están cargados en el proyecto de Vercel, pero el DNS del dominio todavía apunta al proveedor original (no a Vercel) — falta cargar un registro `A` (`@` → `76.76.21.21`) y `CNAME` (`www` → `cname.vercel-dns.com.`) en el panel de DNS del registrador. Mientras tanto el sitio está online en `https://pc-producciones-web.vercel.app`.
 
-## Instagram automático
+## Instagram
 
-El feed de Instagram de la home (`InstagramFeed`) es un grid full-width que lee de la tabla `InstagramPost`. Esa tabla se llena de dos formas:
+**Lo que se muestra hoy en la home** (`InstagramFeed`) es un widget de terceros (SnapWidget/Elfsight/LightWidget) embebido a todo el ancho, controlado por `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID`. Sin ese id configurado, se muestra un cartel con link al perfil.
 
-1. **Automática (recomendada)**: conectando la cuenta de Instagram desde `/admin/instagram`. Una vez conectada, un cron job de Vercel sincroniza las fotos todos los días (no se puede más seguido: el plan gratuito de Vercel solo permite cron jobs con frecuencia diaria) y renueva el token antes de que venza. También hay un botón "Sincronizar ahora" para forzarlo.
-2. **Manual**: pegando una URL de imagen (y opcionalmente el link al post) desde el mismo panel — útil como fallback o para fotos que no están en Instagram.
+**Galería propia (no usada en la home por ahora, pero disponible)**: en paralelo existe una galería propia en `/admin/instagram`, con su tabla `InstagramPost`, que se puede llenar de dos formas: conectando la cuenta de Instagram vía la API de Meta (sincroniza sola todos los días) o pegando fotos a mano. Si en algún momento se prefiere volver a este grid propio en vez del widget de terceros, hay que volver a renderizar ese componente en la home (se dejó de usar, no se borró).
+
+### Setup del widget de terceros
+
+Crear una cuenta en SnapWidget (u otro similar), generar un widget para `@pcproduccionesok`, y cargar el id que te dan en `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID` (en Vercel y en `.env` local).
+
+### Setup de la galería propia (API de Meta) — opcional, solo si se vuelve a activar
 
 ### Setup inicial (una sola vez, lo tiene que hacer alguien con acceso a la cuenta de Instagram/Facebook de PC)
 

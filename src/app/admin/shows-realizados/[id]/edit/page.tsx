@@ -25,7 +25,7 @@ export default async function EditPastShowPage({
 
       <div className="mx-auto max-w-2xl px-6 py-10">
         <h1 className="text-2xl font-bold text-neutral-950">
-          Editar show realizado
+          Editar evento pasado
         </h1>
         <p className="mt-1 text-sm text-neutral-500">{show.title}</p>
 

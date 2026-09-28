@@ -1,25 +1,7 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import type { PublicInstagramPost } from "@/lib/types";
-
+const WIDGET_ID = process.env.NEXT_PUBLIC_INSTAGRAM_WIDGET_ID;
 const INSTAGRAM_URL = "https://www.instagram.com/pcproduccionesok/";
 
 export function InstagramFeed() {
-  const [posts, setPosts] = useState<PublicInstagramPost[] | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/instagram-posts")
-      .then((res) => res.json())
-      .then((json: { posts: PublicInstagramPost[] }) => {
-        if (!cancelled) setPosts(json.posts);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   return (
     <section className="bg-white py-24">
       <div className="mx-auto max-w-6xl px-6 text-center">
@@ -36,30 +18,20 @@ export function InstagramFeed() {
         </a>
       </div>
 
-      <div className="mt-12">
-        {posts && posts.length > 0 ? (
-          <div className="grid grid-cols-3 gap-0.5 sm:grid-cols-4 md:grid-cols-6">
-            {posts.map((post) => (
-              <a
-                key={post.id}
-                href={post.postUrl ?? INSTAGRAM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative aspect-square overflow-hidden bg-neutral-100"
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={post.imageUrl}
-                  alt={post.caption ?? "Foto de Instagram"}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition duration-300 group-hover:scale-105 group-hover:opacity-90"
-                />
-              </a>
-            ))}
-          </div>
+      <div className="mt-12 w-full px-6">
+        {WIDGET_ID ? (
+          <iframe
+            title="Feed de Instagram"
+            src={`https://snapwidget.com/embed/${WIDGET_ID}`}
+            className="h-[480px] w-full border-0"
+            loading="lazy"
+          />
         ) : (
-          <div className="mx-auto flex h-48 max-w-2xl flex-col items-center justify-center gap-3 px-6 text-center text-sm text-neutral-400">
-            <p>Muy pronto vas a ver acá las últimas fotos de Instagram.</p>
+          <div className="mx-auto flex h-48 max-w-2xl flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-neutral-300 text-sm text-neutral-400">
+            <p>
+              Configurar NEXT_PUBLIC_INSTAGRAM_WIDGET_ID (SnapWidget/
+              Elfsight/LightWidget) para mostrar el feed acá.
+            </p>
             <a
               href={INSTAGRAM_URL}
               target="_blank"

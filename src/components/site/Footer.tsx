@@ -10,6 +10,7 @@ const SOCIAL_LINKS = [
 
 const NAV_LINKS = [
   { href: "#proximos-shows", label: "Próximos Shows" },
+  { href: "#eventos-pasados", label: "Eventos pasados" },
   { href: "#quienes-somos", label: "Quiénes Somos" },
   { href: "#contacto", label: "Contacto" },
 ];

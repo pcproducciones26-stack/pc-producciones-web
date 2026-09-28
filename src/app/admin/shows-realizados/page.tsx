@@ -16,10 +16,11 @@ export default async function PastShowsAdminPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-neutral-950">
-              Shows realizados
+              Eventos pasados
             </h1>
             <p className="text-sm text-neutral-500">
-              Cargá fecha, lugar, fotos y videos de los shows ya hechos.
+              Cargá fecha, lugar, descripción, fotos y videos de los eventos
+              ya hechos.
             </p>
           </div>
           <Link
@@ -83,7 +84,7 @@ export default async function PastShowsAdminPage() {
                     colSpan={6}
                     className="px-4 py-10 text-center text-neutral-400"
                   >
-                    Todavía no cargaste ningún show realizado.
+                    Todavía no cargaste ningún evento pasado.
                   </td>
                 </tr>
               )}
