@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -31,17 +30,17 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2">
-        <Link href="/" className="flex items-center gap-2">
+        <a href="#top" className="flex items-center gap-2">
           <Image
             src={dark ? "/logos/pc-negro.png" : "/logos/pc-blanco.png"}
-            alt="PC Producciones"
-            width={220}
-            height={73}
-            className="h-16 w-auto sm:h-20"
+            alt="PC Producciones — volver al inicio"
+            width={280}
+            height={93}
+            className="h-20 w-auto sm:h-28"
             style={{ width: "auto" }}
             priority
           />
-        </Link>
+        </a>
 
         <nav className="hidden gap-8 text-sm font-medium tracking-wide md:flex">
           {NAV_LINKS.map((link) => (
