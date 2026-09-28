@@ -3,21 +3,24 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function DeleteEventButton({ id, title }: { id: string; title: string }) {
+type Props = {
+  endpoint: string;
+  confirmMessage: string;
+};
+
+export function DeleteButton({ endpoint, confirmMessage }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const onDelete = async () => {
-    if (!confirm(`¿Eliminar el evento "${title}"? Esta acción no se puede deshacer.`)) {
-      return;
-    }
+    if (!confirm(confirmMessage)) return;
     setLoading(true);
-    const res = await fetch(`/api/admin/events/${id}`, { method: "DELETE" });
+    const res = await fetch(endpoint, { method: "DELETE" });
     setLoading(false);
     if (res.ok) {
       router.refresh();
     } else {
-      alert("No se pudo eliminar el evento");
+      alert("No se pudo eliminar");
     }
   };
 

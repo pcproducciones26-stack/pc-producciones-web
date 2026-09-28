@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { AdminHeader } from "@/components/admin/AdminHeader";
 import { EventForm } from "@/components/admin/EventForm";
 
 function toDatetimeLocal(date: Date) {
@@ -21,23 +22,27 @@ export default async function EditEventPage({
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-10">
-      <h1 className="text-2xl font-bold text-neutral-950">Editar fecha</h1>
-      <p className="mt-1 text-sm text-neutral-500">{event.title}</p>
+    <div>
+      <AdminHeader active="fechas" />
 
-      <div className="mt-8">
-        <EventForm
-          eventId={event.id}
-          defaultValues={{
-            title: event.title,
-            date: toDatetimeLocal(event.date),
-            venue: event.venue,
-            imageUrl: event.imageUrl ?? "",
-            ticketUrl: event.ticketUrl,
-            description: event.description ?? "",
-            status: event.status,
-          }}
-        />
+      <div className="mx-auto max-w-2xl px-6 py-10">
+        <h1 className="text-2xl font-bold text-neutral-950">Editar fecha</h1>
+        <p className="mt-1 text-sm text-neutral-500">{event.title}</p>
+
+        <div className="mt-8">
+          <EventForm
+            eventId={event.id}
+            defaultValues={{
+              title: event.title,
+              date: toDatetimeLocal(event.date),
+              venue: event.venue,
+              imageUrl: event.imageUrl ?? "",
+              ticketUrl: event.ticketUrl,
+              description: event.description ?? "",
+              status: event.status,
+            }}
+          />
+        </div>
       </div>
     </div>
   );

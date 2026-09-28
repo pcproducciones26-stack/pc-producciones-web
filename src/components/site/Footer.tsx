@@ -1,16 +1,16 @@
 import Image from "next/image";
 
-// [LINK RED SOCIAL] — completar con los links reales de cada red
+// [LINK RED SOCIAL] — X y LinkedIn quedan pendientes de confirmar
 const SOCIAL_LINKS = [
-  { label: "Instagram", href: "#" },
-  { label: "Facebook", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/pcproduccionesok/" },
+  { label: "Facebook", href: "https://www.facebook.com/PCproduccionesOk" },
   { label: "X", href: "#" },
   { label: "LinkedIn", href: "#" },
 ];
 
 const NAV_LINKS = [
   { href: "#proximos-shows", label: "Próximos Shows" },
-  { href: "#artistas", label: "Shows" },
+  { href: "#shows-realizados", label: "Shows" },
   { href: "#quienes-somos", label: "Quiénes Somos" },
   { href: "#contacto", label: "Contacto" },
 ];

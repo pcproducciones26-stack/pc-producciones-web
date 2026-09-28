@@ -5,28 +5,28 @@ import { DeleteButton } from "@/components/admin/DeleteButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDashboard() {
-  const events = await prisma.event.findMany({ orderBy: { date: "desc" } });
+export default async function PastShowsAdminPage() {
+  const shows = await prisma.pastShow.findMany({ orderBy: { date: "desc" } });
 
   return (
     <div>
-      <AdminHeader active="fechas" />
+      <AdminHeader active="realizados" />
 
       <div className="mx-auto max-w-5xl px-6 py-10">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-neutral-950">
-              Próximas fechas
+              Shows realizados
             </h1>
             <p className="text-sm text-neutral-500">
-              Gestioná las fechas que se muestran en la home.
+              Cargá fecha, lugar, fotos y videos de los shows ya hechos.
             </p>
           </div>
           <Link
-            href="/admin/events/new"
+            href="/admin/shows-realizados/new"
             className="rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800"
           >
-            + Nueva fecha
+            + Nuevo show
           </Link>
         </div>
 
@@ -37,55 +37,53 @@ export default async function AdminDashboard() {
                 <th className="px-4 py-3 font-medium">Título</th>
                 <th className="px-4 py-3 font-medium">Fecha</th>
                 <th className="px-4 py-3 font-medium">Lugar</th>
-                <th className="px-4 py-3 font-medium">Estado</th>
+                <th className="px-4 py-3 font-medium">Fotos</th>
+                <th className="px-4 py-3 font-medium">Videos</th>
                 <th className="px-4 py-3 font-medium" />
               </tr>
             </thead>
             <tbody>
-              {events.map((event) => (
-                <tr key={event.id} className="border-t border-neutral-100">
+              {shows.map((show) => (
+                <tr key={show.id} className="border-t border-neutral-100">
                   <td className="px-4 py-3 font-medium text-neutral-950">
-                    {event.title}
+                    {show.title}
                   </td>
                   <td className="px-4 py-3 text-neutral-500">
-                    {new Date(event.date).toLocaleDateString("es-AR")}
+                    {new Date(show.date).toLocaleDateString("es-AR", {
+                      timeZone: "UTC",
+                    })}
                   </td>
-                  <td className="px-4 py-3 text-neutral-500">{event.venue}</td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                        event.status === "PUBLISHED"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-neutral-100 text-neutral-500"
-                      }`}
-                    >
-                      {event.status === "PUBLISHED" ? "Publicado" : "Borrador"}
-                    </span>
+                  <td className="px-4 py-3 text-neutral-500">{show.venue}</td>
+                  <td className="px-4 py-3 text-neutral-500">
+                    {show.photoUrls.length}
+                  </td>
+                  <td className="px-4 py-3 text-neutral-500">
+                    {show.videoUrls.length}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-4">
                       <Link
-                        href={`/admin/events/${event.id}/edit`}
+                        href={`/admin/shows-realizados/${show.id}/edit`}
                         className="text-sm font-medium text-neutral-950 hover:opacity-70"
                       >
                         Editar
                       </Link>
                       <DeleteButton
-                        endpoint={`/api/admin/events/${event.id}`}
-                        confirmMessage={`¿Eliminar el evento "${event.title}"? Esta acción no se puede deshacer.`}
+                        endpoint={`/api/admin/past-shows/${show.id}`}
+                        confirmMessage={`¿Eliminar el show "${show.title}"? Esta acción no se puede deshacer.`}
                       />
                     </div>
                   </td>
                 </tr>
               ))}
 
-              {events.length === 0 && (
+              {shows.length === 0 && (
                 <tr>
                   <td
-                    colSpan={5}
+                    colSpan={6}
                     className="px-4 py-10 text-center text-neutral-400"
                   >
-                    Todavía no cargaste ninguna fecha.
+                    Todavía no cargaste ningún show realizado.
                   </td>
                 </tr>
               )}

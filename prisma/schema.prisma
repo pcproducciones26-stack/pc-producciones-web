@@ -26,3 +26,17 @@ model Event {
   @@index([date])
   @@index([status])
 }
+
+model PastShow {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime
+  venue       String
+  photoUrls   String[] @default([])
+  videoUrls   String[] @default([])
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date])
+}
