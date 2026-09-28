@@ -61,3 +61,10 @@ model InstagramConfig {
   lastSyncedAt     DateTime?
   updatedAt        DateTime  @updatedAt
 }
+
+model SiteSettings {
+  id             String   @id @default("singleton")
+  heroVideoUrl   String?
+  marqueeArtists String[] @default([])
+  updatedAt      DateTime @updatedAt
+}

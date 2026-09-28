@@ -5,12 +5,13 @@ const TABS = [
   { href: "/admin", label: "Próximas fechas" },
   { href: "/admin/shows-realizados", label: "Eventos pasados" },
   { href: "/admin/instagram", label: "Instagram" },
+  { href: "/admin/settings", label: "Configuración" },
 ];
 
 export function AdminHeader({
   active,
 }: {
-  active: "fechas" | "realizados" | "instagram";
+  active: "fechas" | "realizados" | "instagram" | "settings";
 }) {
   return (
     <div className="border-b border-neutral-200 bg-white">
@@ -21,7 +22,8 @@ export function AdminHeader({
               (active === "fechas" && tab.href === "/admin") ||
               (active === "realizados" &&
                 tab.href === "/admin/shows-realizados") ||
-              (active === "instagram" && tab.href === "/admin/instagram");
+              (active === "instagram" && tab.href === "/admin/instagram") ||
+              (active === "settings" && tab.href === "/admin/settings");
             return (
               <Link
                 key={tab.href}

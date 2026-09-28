@@ -1,15 +1,5 @@
-// [LISTADO DE ARTISTAS] — reemplazar por los artistas reales producidos por PC
-const ARTISTS = [
-  "Artista Uno",
-  "Artista Dos",
-  "Artista Tres",
-  "Artista Cuatro",
-  "Artista Cinco",
-  "Artista Seis",
-];
-
-export function ArtistsMarquee() {
-  const items = [...ARTISTS, ...ARTISTS];
+export function ArtistsMarquee({ artists }: { artists: string[] }) {
+  const items = [...artists, ...artists];
 
   return (
     <section id="artistas" className="border-y border-neutral-200 bg-white py-8">

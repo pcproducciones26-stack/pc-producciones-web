@@ -1,7 +1,8 @@
-export function Hero() {
+export function Hero({ videoUrl }: { videoUrl: string }) {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 text-white">
       <video
+        key={videoUrl}
         className="absolute inset-0 h-full w-full object-cover"
         autoPlay
         muted
@@ -9,7 +10,7 @@ export function Hero() {
         playsInline
         preload="auto"
       >
-        <source src="/video/hero-bg.mp4" type="video/mp4" />
+        <source src={videoUrl} type="video/mp4" />
       </video>
 
       {/* Overlay oscuro para mantener el texto legible sobre el video */}

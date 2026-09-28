@@ -52,13 +52,16 @@ Landing page de la productora de eventos PC, con panel de administración para c
 
 ## Instagram
 
-**Lo que se muestra hoy en la home** (`InstagramFeed`) es un widget de terceros (SnapWidget/Elfsight/LightWidget) embebido a todo el ancho, controlado por `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID`. Sin ese id configurado, se muestra un cartel con link al perfil.
+Hay dos secciones distintas relacionadas con Instagram en la home, con fuentes de datos separadas:
 
-**Galería propia (no usada en la home por ahora, pero disponible)**: en paralelo existe una galería propia en `/admin/instagram`, con su tabla `InstagramPost`, que se puede llenar de dos formas: conectando la cuenta de Instagram vía la API de Meta (sincroniza sola todos los días) o pegando fotos a mano. Si en algún momento se prefiere volver a este grid propio en vez del widget de terceros, hay que volver a renderizar ese componente en la home (se dejó de usar, no se borró).
+- **"Seguinos en Instagram"** (`InstagramFeed`): un widget de terceros (LightWidget) embebido a todo el ancho, controlado por `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID`. Sin ese id configurado, se muestra un cartel con link al perfil.
+- **"Eventos pasados"** (`PastEventsSection`): lee de la tabla `InstagramPost`, la misma que se administra en `/admin/instagram`. Cada foto se muestra con su descripción superpuesta y linkea al post/reel real al hacer click.
 
-### Setup del widget de terceros
+`/admin/instagram` alimenta **solo** la sección "Eventos pasados" — las fotos que cargues ahí (a mano o vía la sincronización con la API de Meta) van a esa sección, no al widget de "Seguinos en Instagram" (que es independiente).
 
-Crear una cuenta en SnapWidget (u otro similar), generar un widget para `@pcproduccionesok`, y cargar el id que te dan en `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID` (en Vercel y en `.env` local).
+### Setup del widget de LightWidget
+
+Crear una cuenta en [lightwidget.com](https://lightwidget.com/create-account), generar un widget para `@pcproduccionesok`, y cargar el id que te dan (el código entre `/widgets/` y `.html` del embed) en `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID` (en Vercel y en `.env` local).
 
 ### Setup de la galería propia (API de Meta) — opcional, solo si se vuelve a activar
 
@@ -72,9 +75,20 @@ Crear una cuenta en SnapWidget (u otro similar), generar un widget para `@pcprod
 6. Cargar esas variables en Vercel (`INSTAGRAM_APP_ID`, `INSTAGRAM_APP_SECRET`, `INSTAGRAM_REDIRECT_URI`) y un `CRON_SECRET` (cualquier string largo al azar) para autenticar los cron jobs.
 7. Entrar a `/admin/instagram` en el sitio ya deployado y click en **"Conectar cuenta de Instagram"** — pide loguearse con la cuenta de Instagram de PC y autorizar. Como es la cuenta del dueño de la app, no hace falta pasar por revisión de Meta (App Review); queda funcionando en modo Development indefinidamente.
 
+## Configuración del sitio (`/admin/settings`)
+
+Panel para editar contenido general sin tocar código:
+
+- **Video de fondo del hero**: se sube el archivo directo desde el navegador (drag & drop / seleccionar archivo), sin pasar por el límite de 4.5MB de las funciones de Vercel — usa la subida directa a **Vercel Blob** (`upload()` de `@vercel/blob/client`, con el token de un lado a otro vía `/api/admin/site-settings/hero-video`). Requiere la variable `BLOB_READ_WRITE_TOKEN` (ya conectada en Vercel al crear el Blob Store `pc-producciones-assets`; para probar la subida en local hay que copiarla también al `.env`, ej. con `vercel env pull`).
+- **Artistas de la marquesina**: lista editable que alimenta el scroll debajo del hero.
+
+Todo se guarda en la tabla `SiteSettings` (fila única `id="singleton"`). Si no hay nada cargado, se usan valores por defecto (el video local `public/video/hero-bg.mp4` y una lista de artistas de placeholder).
+
 ## Pendientes antes de producción
 
-Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.md): número de WhatsApp real, dominio final, copys, listado de artistas y redes del footer.
+Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.md): número de WhatsApp real, copys y redes del footer.
 
-- [ ] `public/video/hero-bg.mp4` es un video de stock genérico (Pexels, uso libre comercial) usado como placeholder del fondo del hero. Reemplazar por material real de PC (shows, backstage, etc).
-- [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) para que el feed se sincronice solo.
+- [ ] El video del hero es de stock (Pexels, uso libre comercial) por defecto — subir uno real desde `/admin/settings`.
+- [ ] Cargar los nombres reales de artistas en la marquesina desde `/admin/settings`.
+- [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) o configurar el widget de LightWidget para que el feed se sincronice solo.
+- [x] Dominio (`pcproducciones.com.ar`) — activo y funcionando en producción.
