@@ -20,8 +20,10 @@ export default async function InstagramAdminPage() {
         <div>
           <h1 className="text-2xl font-bold text-neutral-950">Instagram</h1>
           <p className="text-sm text-neutral-500">
-            Conectá tu cuenta para que las fotos se traigan solas todos los
-            días, o agregá fotos a mano abajo.
+            Estas fotos son las que se muestran en la home, en la sección
+            &quot;Eventos pasados&quot;. Conectá tu cuenta para que se
+            carguen solas todos los días, o agregalas a mano abajo (la
+            descripción que pongas aparece arriba de la foto).
           </p>
         </div>
 
