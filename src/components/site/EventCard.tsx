@@ -16,7 +16,7 @@ export function EventCard({ event }: { event: PublicEvent }) {
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white transition hover:shadow-lg">
-      <div className="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+      <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
         {event.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
