@@ -1,3 +1,5 @@
+import Script from "next/script";
+
 const WIDGET_ID = process.env.NEXT_PUBLIC_INSTAGRAM_WIDGET_ID;
 const INSTAGRAM_URL = "https://www.instagram.com/pcproduccionesok/";
 
@@ -20,17 +22,24 @@ export function InstagramFeed() {
 
       <div className="mt-12 w-full px-6">
         {WIDGET_ID ? (
-          <iframe
-            title="Feed de Instagram"
-            src={`https://snapwidget.com/embed/${WIDGET_ID}`}
-            className="h-[480px] w-full border-0"
-            loading="lazy"
-          />
+          <>
+            <Script
+              src="https://cdn.lightwidget.com/widgets/lightwidget.js"
+              strategy="lazyOnload"
+            />
+            <iframe
+              title="Feed de Instagram"
+              src={`https://lightwidget.com/widgets/${WIDGET_ID}.html`}
+              scrolling="no"
+              className="lightwidget-widget w-full border-0"
+              style={{ minHeight: 400, overflow: "hidden" }}
+            />
+          </>
         ) : (
           <div className="mx-auto flex h-48 max-w-2xl flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-neutral-300 text-sm text-neutral-400">
             <p>
-              Configurar NEXT_PUBLIC_INSTAGRAM_WIDGET_ID (SnapWidget/
-              Elfsight/LightWidget) para mostrar el feed acá.
+              Configurar NEXT_PUBLIC_INSTAGRAM_WIDGET_ID (LightWidget) para
+              mostrar el feed acá.
             </p>
             <a
               href={INSTAGRAM_URL}
