@@ -9,7 +9,7 @@ import { ContactSection } from "@/components/site/ContactSection";
 import { Footer } from "@/components/site/Footer";
 
 export default function Home() {
-  const contactEmail = process.env.CONTACT_EMAIL_TO ?? "hola@pcproducciones.com.ar";
+  const contactEmail = process.env.CONTACT_EMAIL_TO ?? "info@pcproducciones.com.ar";
   const whatsappNumber = process.env.WHATSAPP_NUMBER ?? "";
 
   return (

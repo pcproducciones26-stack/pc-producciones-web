@@ -63,7 +63,7 @@ export function ContactSection({ contactEmail, whatsappNumber }: Props) {
             </div>
             <div>
               <dt className="font-semibold text-neutral-950">Ubicación</dt>
-              <dd className="text-neutral-500">Buenos Aires, Argentina</dd>
+              <dd className="text-neutral-500">Santa Fe, Argentina</dd>
             </div>
           </dl>
 

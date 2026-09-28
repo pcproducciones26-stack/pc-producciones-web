@@ -60,9 +60,9 @@ Contexto: clon casi exacto (estructura, layout y estilo visual) de **https://6pa
 ### 3.7 Contacto
 - Formulario con campos: **Nombre**, **Email**, **Teléfono (opcional)**, **Mensaje**.
 - Al enviarse:
-  - Se manda un email a **matias@pcproducciones.com.ar** (vía Resend).
+  - Se manda un email a **info@pcproducciones.com.ar** (vía Resend).
   - Se muestra además un botón directo de **WhatsApp** (`https://wa.me/[NUMERO_WHATSAPP]`) con mensaje precargado tipo "Hola, quiero hacer una consulta a PC Producciones". El número queda como variable de entorno `WHATSAPP_NUMBER` — **placeholder pendiente de completar**.
-- Mostrar también email y ubicación (Buenos Aires, Argentina — confirmar) como en el sitio original.
+- Mostrar también email y ubicación (Santa Fe, Argentina) como en el sitio original.
 
 ### 3.8 Footer
 - Logo PC.
@@ -110,6 +110,6 @@ Contexto: clon casi exacto (estructura, layout y estilo visual) de **https://6pa
 
 1. Sitio deployado en Vercel, conectado a un dominio provisorio (`.vercel.app`) hasta tener el dominio final.
 2. Panel `/admin` funcional para cargar/editar/borrar fechas con sus links de entradas.
-3. Formulario de contacto operativo enviando a matias@pcproducciones.com.ar + botón de WhatsApp.
+3. Formulario de contacto operativo enviando a info@pcproducciones.com.ar + botón de WhatsApp.
 4. Feed de Instagram embebido y funcionando.
 5. Documentación breve de cómo cargar una fecha nueva desde el admin (para uso no técnico).
