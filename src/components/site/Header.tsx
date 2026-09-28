@@ -30,15 +30,15 @@ export function Header() {
         dark ? "bg-white text-neutral-950 shadow-sm" : "bg-transparent text-white"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2">
         <Link href="/" className="flex items-center gap-2">
           <Image
             src={dark ? "/logos/pc-negro.png" : "/logos/pc-blanco.png"}
             alt="PC Producciones"
-            width={96}
-            height={32}
-            className="h-8 w-auto"
-            style={{ width: "auto", height: "2rem" }}
+            width={220}
+            height={73}
+            className="h-16 w-auto sm:h-20"
+            style={{ width: "auto" }}
             priority
           />
         </Link>

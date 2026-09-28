@@ -22,10 +22,10 @@ export function Footer() {
         <Image
           src="/logos/pc-negro.png"
           alt="PC Producciones"
-          width={80}
-          height={28}
-          className="h-7 w-auto"
-          style={{ width: "auto", height: "1.75rem" }}
+          width={180}
+          height={60}
+          className="h-14 w-auto"
+          style={{ width: "auto" }}
         />
 
         <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium">

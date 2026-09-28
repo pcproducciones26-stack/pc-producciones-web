@@ -1,6 +1,19 @@
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 text-white">
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+      >
+        <source src="/video/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Overlay oscuro para mantener el texto legible sobre el video */}
+      <div className="absolute inset-0 bg-neutral-950/70" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_60%)]" />
 
       <div className="relative mx-auto max-w-4xl px-6 text-center">
