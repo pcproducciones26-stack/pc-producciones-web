@@ -43,6 +43,13 @@ Landing page de la productora de eventos PC, con panel de administración para c
 
 `/admin/login` — protegido por usuario/contraseña (`ADMIN_USERNAME` / `ADMIN_PASSWORD_HASH`). Desde `/admin` se pueden crear, editar y eliminar las próximas fechas (título, fecha, lugar, imagen, link de entradas, estado publicado/borrador).
 
+## Producción
+
+- **Hosting**: Vercel, proyecto `pc-producciones-web` (cuenta `pcproducciones26-stack`), conectado por Git al repo de GitHub — cada push a `main` dispara un deploy.
+- **Base de datos**: Supabase Postgres (proyecto `ogumsazgbgkguedjtlpi`).
+  - ⚠️ **Usar siempre el connection pooler** (`aws-0-us-east-1.pooler.supabase.com:6543`, usuario `postgres.<project-ref>`), **no** la conexión directa (`db.<project-ref>.supabase.co:5432`). La conexión directa de Supabase solo resuelve por IPv6, y las funciones serverless de Vercel no tienen salida IPv6 — la app fallaba con `Can't reach database server` hasta cambiar al pooler.
+- **Dominio**: `pcproducciones.com.ar` / `www.pcproducciones.com.ar` ya están cargados en el proyecto de Vercel, pero el DNS del dominio todavía apunta al proveedor original (no a Vercel) — falta cargar un registro `A` (`@` → `76.76.21.21`) y `CNAME` (`www` → `cname.vercel-dns.com.`) en el panel de DNS del registrador. Mientras tanto el sitio está online en `https://pc-producciones-web.vercel.app`.
+
 ## Pendientes antes de producción
 
 Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.md): número de WhatsApp real, dominio final, copys, listado de artistas, usuario de Instagram, redes del footer y credenciales de admin definitivas.
