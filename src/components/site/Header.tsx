@@ -34,9 +34,9 @@ export function Header() {
           <Image
             src={dark ? "/logos/pc-negro.png" : "/logos/pc-blanco.png"}
             alt="PC Producciones — volver al inicio"
-            width={280}
-            height={93}
-            className="h-20 w-auto sm:h-28"
+            width={340}
+            height={113}
+            className="h-24 w-auto sm:h-36"
             style={{ width: "auto" }}
             priority
           />
