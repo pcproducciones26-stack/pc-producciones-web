@@ -59,7 +59,8 @@ export function InstagramConnectionPanel() {
       )}
       {status === "error" && (
         <p className="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-red-700">
-          No se pudo conectar la cuenta. Probá de nuevo.
+          {searchParams.get("message") ??
+            "No se pudo conectar la cuenta. Probá de nuevo."}
         </p>
       )}
 
