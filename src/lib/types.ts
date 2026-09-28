@@ -17,3 +17,10 @@ export type PublicPastShow = {
   videoUrls: string[];
   description: string | null;
 };
+
+export type PublicInstagramPost = {
+  id: string;
+  imageUrl: string;
+  postUrl: string | null;
+  caption: string | null;
+};

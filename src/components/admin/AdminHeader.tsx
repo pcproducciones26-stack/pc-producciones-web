@@ -4,9 +4,14 @@ import { LogoutButton } from "./LogoutButton";
 const TABS = [
   { href: "/admin", label: "Próximas fechas" },
   { href: "/admin/shows-realizados", label: "Shows realizados" },
+  { href: "/admin/instagram", label: "Instagram" },
 ];
 
-export function AdminHeader({ active }: { active: "fechas" | "realizados" }) {
+export function AdminHeader({
+  active,
+}: {
+  active: "fechas" | "realizados" | "instagram";
+}) {
   return (
     <div className="border-b border-neutral-200 bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
@@ -14,7 +19,9 @@ export function AdminHeader({ active }: { active: "fechas" | "realizados" }) {
           {TABS.map((tab) => {
             const isActive =
               (active === "fechas" && tab.href === "/admin") ||
-              (active === "realizados" && tab.href === "/admin/shows-realizados");
+              (active === "realizados" &&
+                tab.href === "/admin/shows-realizados") ||
+              (active === "instagram" && tab.href === "/admin/instagram");
             return (
               <Link
                 key={tab.href}

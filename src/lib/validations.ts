@@ -40,10 +40,17 @@ export const pastShowFormSchema = z.object({
 
 export type PastShowFormInput = z.infer<typeof pastShowFormSchema>;
 
+export const instagramPostSchema = z.object({
+  imageUrl: z.string().url("Debe ser una URL válida"),
+  postUrl: z.string().url("Debe ser una URL válida").optional().or(z.literal("")),
+  caption: z.string().optional().or(z.literal("")),
+});
+
+export type InstagramPostInput = z.infer<typeof instagramPostSchema>;
+
 export const contactSchema = z.object({
   name: z.string().min(1, "El nombre es obligatorio"),
   email: z.string().email("Email inválido"),
-  phone: z.string().optional().or(z.literal("")),
   message: z.string().min(1, "El mensaje es obligatorio"),
 });
 

@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { name, email, phone, message } = parsed.data;
+  const { name, email, message } = parsed.data;
   const to = process.env.CONTACT_EMAIL_TO;
   const apiKey = process.env.RESEND_API_KEY;
 
@@ -24,15 +24,9 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const emailBody = [
-    `Nombre: ${name}`,
-    `Email: ${email}`,
-    phone ? `Teléfono: ${phone}` : null,
-    "",
-    message,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const emailBody = [`Nombre: ${name}`, `Email: ${email}`, "", message].join(
+    "\n"
+  );
 
   if (!apiKey) {
     console.warn(

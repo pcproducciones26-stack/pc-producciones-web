@@ -40,3 +40,24 @@ model PastShow {
 
   @@index([date])
 }
+
+model InstagramPost {
+  id         String   @id @default(cuid())
+  externalId String?  @unique
+  imageUrl   String
+  postUrl    String?
+  caption    String?
+  postedAt   DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  @@index([postedAt])
+}
+
+model InstagramConfig {
+  id               String    @id @default("singleton")
+  accessToken      String
+  businessAccountId String
+  tokenExpiresAt   DateTime?
+  lastSyncedAt     DateTime?
+  updatedAt        DateTime  @updatedAt
+}

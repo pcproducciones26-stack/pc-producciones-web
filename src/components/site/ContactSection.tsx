@@ -115,17 +115,6 @@ export function ContactSection({ contactEmail, whatsappNumber }: Props) {
           </div>
 
           <div>
-            <label className="text-sm font-medium" htmlFor="phone">
-              Teléfono (opcional)
-            </label>
-            <input
-              id="phone"
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
-              {...register("phone")}
-            />
-          </div>
-
-          <div>
             <label className="text-sm font-medium" htmlFor="message">
               Mensaje
             </label>
