@@ -8,16 +8,6 @@ export type PublicEvent = {
   description: string | null;
 };
 
-export type PublicPastShow = {
-  id: string;
-  title: string;
-  date: string;
-  venue: string;
-  photoUrls: string[];
-  videoUrls: string[];
-  description: string | null;
-};
-
 export type PublicInstagramPost = {
   id: string;
   imageUrl: string;
