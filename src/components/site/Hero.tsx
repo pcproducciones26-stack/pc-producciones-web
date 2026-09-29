@@ -35,29 +35,36 @@ export function Hero({ videoUrl, title, subtitle, ctaLabel, ctaUrl }: Props) {
           {subtitle}
         </p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
-            href="#proximos-shows"
-            className="rounded-full bg-white px-8 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
-          >
-            Ver próximos shows
-          </a>
-          <a
-            href="#quienes-somos"
-            className="rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
-          >
-            Conocé la productora
-          </a>
+        <div className="mt-10 flex flex-col items-center gap-4">
           {showTicketCta && (
             <a
               href={ctaUrl!}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
+              className="rounded-full bg-white px-8 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
             >
               {ctaLabel}
             </a>
           )}
+
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href="#proximos-shows"
+              className={
+                showTicketCta
+                  ? "rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
+                  : "rounded-full bg-white px-8 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
+              }
+            >
+              Ver próximos shows
+            </a>
+            <a
+              href="#quienes-somos"
+              className="rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
+            >
+              Conocé la productora
+            </a>
+          </div>
         </div>
       </div>
     </section>
