@@ -35,8 +35,8 @@ export function Hero({ videoUrl, title, subtitle, ctaLabel, ctaUrl }: Props) {
           {subtitle}
         </p>
 
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          {showTicketCta && (
+        {showTicketCta && (
+          <div className="mt-10 flex items-center justify-center">
             <a
               href={ctaUrl!}
               target="_blank"
@@ -45,24 +45,8 @@ export function Hero({ videoUrl, title, subtitle, ctaLabel, ctaUrl }: Props) {
             >
               {ctaLabel}
             </a>
-          )}
-          <a
-            href="#proximos-shows"
-            className={
-              showTicketCta
-                ? "rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
-                : "rounded-full bg-white px-8 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200"
-            }
-          >
-            Ver próximos shows
-          </a>
-          <a
-            href="#quienes-somos"
-            className="rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
-          >
-            Conocé la productora
-          </a>
-        </div>
+          </div>
+        )}
       </div>
     </section>
   );
