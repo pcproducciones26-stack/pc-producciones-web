@@ -13,7 +13,6 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const contactEmail = process.env.CONTACT_EMAIL_TO ?? "info@pcproducciones.com.ar";
-  const whatsappNumber = process.env.WHATSAPP_NUMBER ?? "";
   const { heroVideoUrl, marqueeArtists } = await getSiteSettings();
 
   return (
@@ -26,10 +25,7 @@ export default async function Home() {
         <PastEventsSection />
         <AboutSection />
         <InstagramFeed />
-        <ContactSection
-          contactEmail={contactEmail}
-          whatsappNumber={whatsappNumber}
-        />
+        <ContactSection contactEmail={contactEmail} />
       </main>
       <Footer />
     </div>

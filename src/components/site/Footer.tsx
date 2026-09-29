@@ -1,11 +1,8 @@
 import Image from "next/image";
 
-// [LINK RED SOCIAL] — X y LinkedIn quedan pendientes de confirmar
 const SOCIAL_LINKS = [
   { label: "Instagram", href: "https://www.instagram.com/pcproduccionesok/" },
   { label: "Facebook", href: "https://www.facebook.com/PCproduccionesOk" },
-  { label: "X", href: "#" },
-  { label: "LinkedIn", href: "#" },
 ];
 
 const NAV_LINKS = [

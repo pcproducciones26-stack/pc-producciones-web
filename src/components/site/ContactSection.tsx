@@ -7,10 +7,9 @@ import { contactSchema, type ContactInput } from "@/lib/validations";
 
 type Props = {
   contactEmail: string;
-  whatsappNumber: string;
 };
 
-export function ContactSection({ contactEmail, whatsappNumber }: Props) {
+export function ContactSection({ contactEmail }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -40,10 +39,6 @@ export function ContactSection({ contactEmail, whatsappNumber }: Props) {
     }
   };
 
-  const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hola, quiero hacer una consulta a PC Producciones"
-  )}`;
-
   return (
     <section id="contacto" className="bg-neutral-50 py-24">
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 md:grid-cols-2">
@@ -66,15 +61,6 @@ export function ContactSection({ contactEmail, whatsappNumber }: Props) {
               <dd className="text-neutral-500">Santa Fe, Argentina</dd>
             </div>
           </dl>
-
-          <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800"
-          >
-            Escribinos por WhatsApp
-          </a>
         </div>
 
         <form

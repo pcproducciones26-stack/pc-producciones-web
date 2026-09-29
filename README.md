@@ -86,9 +86,10 @@ Todo se guarda en la tabla `SiteSettings` (fila única `id="singleton"`). Si no 
 
 ## Pendientes antes de producción
 
-Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.md): número de WhatsApp real, copys y redes del footer.
+Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.md): copys y contenido pendiente.
 
 - [ ] El video del hero es de stock (Pexels, uso libre comercial) por defecto — subir uno real desde `/admin/settings`.
 - [ ] Cargar los nombres reales de artistas en la marquesina desde `/admin/settings`.
 - [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) o configurar el widget de LightWidget para que el feed se sincronice solo.
+- [ ] **El formulario de contacto no envía emails todavía** — sin `RESEND_API_KEY` configurada, los mensajes solo quedan en el log del servidor. Hay que crear una cuenta en [resend.com](https://resend.com) y cargar la API key.
 - [x] Dominio (`pcproducciones.com.ar`) — activo y funcionando en producción.
