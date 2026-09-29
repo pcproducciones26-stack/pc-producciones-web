@@ -42,13 +42,16 @@ model PastShow {
 }
 
 model InstagramPost {
-  id         String   @id @default(cuid())
-  externalId String?  @unique
+  id         String    @id @default(cuid())
+  externalId String?   @unique
   imageUrl   String
   postUrl    String?
   caption    String?
-  postedAt   DateTime @default(now())
-  createdAt  DateTime @default(now())
+  eventDate  DateTime?
+  venue      String?
+  city       String?
+  postedAt   DateTime  @default(now())
+  createdAt  DateTime  @default(now())
 
   @@index([postedAt])
 }

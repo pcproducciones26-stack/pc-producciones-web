@@ -44,6 +44,9 @@ export const instagramPostSchema = z.object({
   imageUrl: z.string().url("Debe ser una URL válida"),
   postUrl: z.string().url("Debe ser una URL válida").optional().or(z.literal("")),
   caption: z.string().optional().or(z.literal("")),
+  eventDate: z.string().optional().or(z.literal("")),
+  venue: z.string().optional().or(z.literal("")),
+  city: z.string().optional().or(z.literal("")),
 });
 
 export type InstagramPostInput = z.infer<typeof instagramPostSchema>;

@@ -23,4 +23,7 @@ export type PublicInstagramPost = {
   imageUrl: string;
   postUrl: string | null;
   caption: string | null;
+  eventDate: string | null;
+  venue: string | null;
+  city: string | null;
 };

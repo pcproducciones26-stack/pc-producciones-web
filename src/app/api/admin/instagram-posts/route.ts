@@ -20,13 +20,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { imageUrl, postUrl, caption } = parsed.data;
+  const { imageUrl, postUrl, caption, eventDate, venue, city } = parsed.data;
 
   const post = await prisma.instagramPost.create({
     data: {
       imageUrl,
       postUrl: postUrl || null,
       caption: caption || null,
+      eventDate: eventDate ? new Date(eventDate) : null,
+      venue: venue || null,
+      city: city || null,
     },
   });
 

@@ -91,6 +91,44 @@ export function AddInstagramPostForm() {
         />
       </div>
 
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div>
+          <label className="text-sm font-medium" htmlFor="eventDate">
+            Fecha (opcional)
+          </label>
+          <input
+            id="eventDate"
+            type="date"
+            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            {...register("eventDate")}
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-medium" htmlFor="venue">
+            Lugar (opcional)
+          </label>
+          <input
+            id="venue"
+            placeholder="Movistar Arena"
+            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            {...register("venue")}
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-medium" htmlFor="city">
+            Ciudad (opcional)
+          </label>
+          <input
+            id="city"
+            placeholder="Buenos Aires"
+            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            {...register("city")}
+          />
+        </div>
+      </div>
+
       {serverError && <p className="text-sm text-red-600">{serverError}</p>}
 
       <div>

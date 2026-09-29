@@ -54,23 +54,40 @@ export default async function InstagramAdminPage() {
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="flex items-center justify-between gap-2 p-2">
-                {post.postUrl ? (
-                  <a
-                    href={post.postUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="truncate text-xs font-medium text-neutral-500 hover:text-neutral-950"
-                  >
-                    Ver post
-                  </a>
-                ) : (
-                  <span />
+              <div className="p-2">
+                {(post.eventDate || post.venue || post.city) && (
+                  <p className="truncate text-xs text-neutral-500">
+                    {[
+                      post.eventDate
+                        ? post.eventDate.toLocaleDateString("es-AR", {
+                            timeZone: "UTC",
+                          })
+                        : null,
+                      [post.venue, post.city].filter(Boolean).join(", ") ||
+                        null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </p>
                 )}
-                <DeleteButton
-                  endpoint={`/api/admin/instagram-posts/${post.id}`}
-                  confirmMessage="¿Eliminar esta foto de la galería?"
-                />
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  {post.postUrl ? (
+                    <a
+                      href={post.postUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="truncate text-xs font-medium text-neutral-500 hover:text-neutral-950"
+                    >
+                      Ver post
+                    </a>
+                  ) : (
+                    <span />
+                  )}
+                  <DeleteButton
+                    endpoint={`/api/admin/instagram-posts/${post.id}`}
+                    confirmMessage="¿Eliminar esta foto de la galería?"
+                  />
+                </div>
               </div>
             </div>
           ))}
