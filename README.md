@@ -91,5 +91,5 @@ Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.
 - [ ] El video del hero es de stock (Pexels, uso libre comercial) por defecto — subir uno real desde `/admin/settings`.
 - [ ] Cargar los nombres reales de artistas en la marquesina desde `/admin/settings`.
 - [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) o configurar el widget de LightWidget para que el feed se sincronice solo.
-- [ ] **El formulario de contacto no envía emails todavía** — sin `RESEND_API_KEY` configurada, los mensajes solo quedan en el log del servidor. Hay que crear una cuenta en [resend.com](https://resend.com) y cargar la API key.
+- [ ] **El formulario de contacto no envía emails todavía** — sin `RESEND_API_KEY` configurada, no se manda ningún mail. Como alternativa ya funcional, cada consulta queda guardada y visible en `/admin/messages`. Si más adelante se quiere además por email, hay que crear una cuenta en [resend.com](https://resend.com) y cargar la API key.
 - [x] Dominio (`pcproducciones.com.ar`) — activo y funcionando en producción.
