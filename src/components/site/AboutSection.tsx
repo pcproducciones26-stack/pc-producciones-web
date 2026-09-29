@@ -1,12 +1,9 @@
-// [4 ÁREAS DE TRABAJO] y [TEXTO QUIENES SOMOS] — reemplazar por contenido real de PC
-const AREAS = [
-  "Producción de shows y conciertos",
-  "Festivales",
-  "Eventos corporativos",
-  "Gira y booking de artistas",
-];
+type Props = {
+  text: string;
+  areas: string[];
+};
 
-export function AboutSection() {
+export function AboutSection({ text, areas }: Props) {
   return (
     <section
       id="quienes-somos"
@@ -17,14 +14,11 @@ export function AboutSection() {
           Quiénes somos
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-300">
-          PC es una productora especializada en el desarrollo de experiencias
-          en vivo. Desde hace años trabajamos junto a artistas nacionales e
-          internacionales y marcas líderes para crear shows, festivales y
-          eventos corporativos memorables.
+          {text}
         </p>
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {AREAS.map((area) => (
+          {areas.map((area) => (
             <div
               key={area}
               className="rounded-2xl border border-white/10 px-6 py-8 text-left"

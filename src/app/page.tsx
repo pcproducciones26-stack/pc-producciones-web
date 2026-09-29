@@ -21,6 +21,8 @@ export default async function Home() {
     heroCtaLabel,
     heroCtaUrl,
     marqueeArtists,
+    aboutText,
+    aboutAreas,
   } = await getSiteSettings();
 
   return (
@@ -38,7 +40,7 @@ export default async function Home() {
         <EventsSection />
         <PastEventsSection />
         <FeaturedPastEventsSection />
-        <AboutSection />
+        <AboutSection text={aboutText} areas={aboutAreas} />
         <InstagramFeed />
         <ContactSection contactEmail={contactEmail} />
       </main>

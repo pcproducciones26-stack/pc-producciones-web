@@ -14,8 +14,8 @@ export default async function SiteSettingsPage() {
       <div className="mx-auto max-w-3xl px-6 py-10">
         <h1 className="text-2xl font-bold text-neutral-950">Configuración</h1>
         <p className="mt-1 text-sm text-neutral-500">
-          Contenido general del sitio: el texto y video del hero, y la
-          marquesina de artistas.
+          Contenido general del sitio: el texto y video del hero, la
+          marquesina de artistas, y &quot;Quiénes somos&quot;.
         </p>
 
         <div className="mt-8">
@@ -26,6 +26,8 @@ export default async function SiteSettingsPage() {
             initialHeroCtaLabel={settings.heroCtaLabel ?? ""}
             initialHeroCtaUrl={settings.heroCtaUrl ?? ""}
             initialArtists={settings.marqueeArtists}
+            initialAboutText={settings.aboutText}
+            initialAboutAreas={settings.aboutAreas}
           />
         </div>
       </div>

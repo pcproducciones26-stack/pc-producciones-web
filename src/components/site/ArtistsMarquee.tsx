@@ -4,7 +4,7 @@ export function ArtistsMarquee({ artists }: { artists: string[] }) {
   return (
     <section
       id="artistas"
-      className="scroll-mt-24 border-y border-neutral-800 bg-neutral-800 py-8 sm:scroll-mt-36"
+      className="scroll-mt-24 border-y border-neutral-900 bg-neutral-900 py-8 sm:scroll-mt-36"
     >
       <div className="overflow-hidden">
         <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">

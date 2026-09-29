@@ -15,6 +15,14 @@ export const DEFAULT_HERO_VIDEO_URL = "/video/hero-bg.mp4";
 export const DEFAULT_HERO_TITLE = "Experiencias en vivo";
 export const DEFAULT_HERO_SUBTITLE =
   "PC es una productora especializada en el desarrollo de experiencias en vivo: shows, festivales y eventos corporativos.";
+export const DEFAULT_ABOUT_TEXT =
+  "PC es una productora especializada en el desarrollo de experiencias en vivo. Desde hace años trabajamos junto a artistas nacionales e internacionales y marcas líderes para crear shows, festivales y eventos corporativos memorables.";
+export const DEFAULT_ABOUT_AREAS = [
+  "Producción de shows y conciertos",
+  "Festivales",
+  "Eventos corporativos",
+  "Gira y booking de artistas",
+];
 
 export async function getSiteSettings() {
   const settings = await prisma.siteSettings.findUnique({
@@ -31,6 +39,11 @@ export async function getSiteSettings() {
       settings?.marqueeArtists && settings.marqueeArtists.length > 0
         ? settings.marqueeArtists
         : DEFAULT_ARTISTS,
+    aboutText: settings?.aboutText || DEFAULT_ABOUT_TEXT,
+    aboutAreas:
+      settings?.aboutAreas && settings.aboutAreas.length > 0
+        ? settings.aboutAreas
+        : DEFAULT_ABOUT_AREAS,
   };
 }
 
@@ -55,6 +68,17 @@ export async function updateHeroText(data: {
   heroSubtitle: string;
   heroCtaLabel: string | null;
   heroCtaUrl: string | null;
+}) {
+  return prisma.siteSettings.upsert({
+    where: { id: SETTINGS_ID },
+    create: { id: SETTINGS_ID, ...data },
+    update: data,
+  });
+}
+
+export async function updateAboutSection(data: {
+  aboutText: string;
+  aboutAreas: string[];
 }) {
   return prisma.siteSettings.upsert({
     where: { id: SETTINGS_ID },

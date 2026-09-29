@@ -59,6 +59,8 @@ model SiteSettings {
   heroCtaLabel   String?
   heroCtaUrl     String?
   marqueeArtists String[] @default([])
+  aboutText      String?
+  aboutAreas     String[] @default([])
   updatedAt      DateTime @updatedAt
 }
 

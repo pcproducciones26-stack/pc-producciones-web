@@ -4,6 +4,7 @@ import {
   updateMarqueeArtists,
   updateHeroVideoUrl,
   updateHeroText,
+  updateAboutSection,
 } from "@/lib/site-settings";
 
 export async function GET() {
@@ -40,6 +41,18 @@ export async function PUT(request: NextRequest) {
         typeof body.heroCtaUrl === "string" && body.heroCtaUrl.trim()
           ? body.heroCtaUrl.trim()
           : null,
+    });
+  }
+
+  if (typeof body.aboutText === "string") {
+    const areas = Array.isArray(body.aboutAreas)
+      ? body.aboutAreas.filter(
+          (a: unknown): a is string => typeof a === "string" && a.trim() !== ""
+        )
+      : [];
+    await updateAboutSection({
+      aboutText: body.aboutText.trim(),
+      aboutAreas: areas,
     });
   }
 

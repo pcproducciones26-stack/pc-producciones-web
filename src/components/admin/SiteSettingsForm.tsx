@@ -11,6 +11,8 @@ type Props = {
   initialHeroCtaLabel: string;
   initialHeroCtaUrl: string;
   initialArtists: string[];
+  initialAboutText: string;
+  initialAboutAreas: string[];
 };
 
 export function SiteSettingsForm({
@@ -20,6 +22,8 @@ export function SiteSettingsForm({
   initialHeroCtaLabel,
   initialHeroCtaUrl,
   initialArtists,
+  initialAboutText,
+  initialAboutAreas,
 }: Props) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,6 +44,13 @@ export function SiteSettingsForm({
   );
   const [savingArtists, setSavingArtists] = useState(false);
   const [artistsSaved, setArtistsSaved] = useState(false);
+
+  const [aboutText, setAboutText] = useState(initialAboutText);
+  const [aboutAreas, setAboutAreas] = useState<string[]>(
+    initialAboutAreas.length > 0 ? initialAboutAreas : [""]
+  );
+  const [savingAbout, setSavingAbout] = useState(false);
+  const [aboutSaved, setAboutSaved] = useState(false);
 
   const saveHeroText = async () => {
     setSavingHeroText(true);
@@ -114,6 +125,30 @@ export function SiteSettingsForm({
     setSavingArtists(false);
     if (res.ok) {
       setArtistsSaved(true);
+      router.refresh();
+    }
+  };
+
+  const onAreaChange = (index: number, value: string) => {
+    setAboutAreas((prev) => prev.map((a, i) => (i === index ? value : a)));
+  };
+
+  const addArea = () => setAboutAreas((prev) => [...prev, ""]);
+  const removeArea = (index: number) =>
+    setAboutAreas((prev) => prev.filter((_, i) => i !== index));
+
+  const saveAbout = async () => {
+    setSavingAbout(true);
+    setAboutSaved(false);
+    const cleaned = aboutAreas.map((a) => a.trim()).filter(Boolean);
+    const res = await fetch("/api/admin/site-settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ aboutText, aboutAreas: cleaned }),
+    });
+    setSavingAbout(false);
+    if (res.ok) {
+      setAboutSaved(true);
       router.refresh();
     }
   };
@@ -285,6 +320,72 @@ export function SiteSettingsForm({
             {savingArtists ? "Guardando..." : "Guardar cambios"}
           </button>
           {artistsSaved && (
+            <span className="text-sm text-green-600">Guardado.</span>
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-neutral-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-neutral-950">
+          Quiénes somos
+        </h2>
+        <p className="mt-1 text-sm text-neutral-500">
+          El texto y las áreas de trabajo de esa sección.
+        </p>
+
+        <div className="mt-4">
+          <label className="text-sm font-medium" htmlFor="aboutText">
+            Descripción
+          </label>
+          <textarea
+            id="aboutText"
+            rows={4}
+            value={aboutText}
+            onChange={(e) => setAboutText(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+          />
+        </div>
+
+        <div className="mt-4">
+          <label className="text-sm font-medium">Áreas de trabajo</label>
+          <div className="mt-2 flex flex-col gap-2">
+            {aboutAreas.map((area, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <input
+                  value={area}
+                  onChange={(e) => onAreaChange(index, e.target.value)}
+                  placeholder="Ej: Festivales"
+                  className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeArea(index)}
+                  className="text-xs font-medium text-red-600 hover:text-red-800"
+                >
+                  Quitar
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={addArea}
+            className="mt-3 text-sm font-semibold text-neutral-950 hover:opacity-70"
+          >
+            + Agregar área
+          </button>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={saveAbout}
+            disabled={savingAbout}
+            className="rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-50"
+          >
+            {savingAbout ? "Guardando..." : "Guardar cambios"}
+          </button>
+          {aboutSaved && (
             <span className="text-sm text-green-600">Guardado.</span>
           )}
         </div>
