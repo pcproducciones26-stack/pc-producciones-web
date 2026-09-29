@@ -4,7 +4,10 @@ import { instagramPostSchema } from "@/lib/validations";
 
 export async function GET() {
   const posts = await prisma.instagramPost.findMany({
-    orderBy: { postedAt: "desc" },
+    orderBy: [
+      { eventDate: { sort: "desc", nulls: "last" } },
+      { postedAt: "desc" },
+    ],
   });
   return NextResponse.json({ posts });
 }

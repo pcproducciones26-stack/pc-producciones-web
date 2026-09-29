@@ -11,7 +11,13 @@ function formatDate(iso: string) {
   return { day, month, year };
 }
 
-export function EventCard({ event }: { event: PublicEvent }) {
+export function EventCard({
+  event,
+  past = false,
+}: {
+  event: PublicEvent;
+  past?: boolean;
+}) {
   const { day, month, year } = formatDate(event.date);
 
   return (
@@ -44,14 +50,20 @@ export function EventCard({ event }: { event: PublicEvent }) {
         </h3>
         <p className="text-sm text-neutral-500">{event.venue}</p>
 
-        <a
-          href={event.ticketUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-auto inline-flex items-center justify-center rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
-        >
-          Comprar entradas
-        </a>
+        {past ? (
+          <span className="mt-auto inline-flex w-fit items-center justify-center rounded-full bg-neutral-100 px-5 py-2.5 text-sm font-semibold text-neutral-500">
+            Evento finalizado
+          </span>
+        ) : (
+          <a
+            href={event.ticketUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-auto inline-flex items-center justify-center rounded-full bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-neutral-800"
+          >
+            Comprar entradas
+          </a>
+        )}
       </div>
     </article>
   );

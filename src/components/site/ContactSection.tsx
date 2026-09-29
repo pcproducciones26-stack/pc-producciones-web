@@ -42,26 +42,26 @@ export function ContactSection({ contactEmail }: Props) {
   return (
     <section
       id="contacto"
-      className="scroll-mt-24 bg-neutral-50 py-24 sm:scroll-mt-36"
+      className="scroll-mt-24 bg-neutral-950 py-24 sm:scroll-mt-36"
     >
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 md:grid-cols-2">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Contacto
           </h2>
-          <p className="mt-4 text-neutral-500">
+          <p className="mt-4 text-neutral-400">
             ¿Tenés una consulta sobre un evento o querés trabajar con
             nosotros? Escribinos.
           </p>
 
           <dl className="mt-8 space-y-3 text-sm">
             <div>
-              <dt className="font-semibold text-neutral-950">Email</dt>
-              <dd className="text-neutral-500">{contactEmail}</dd>
+              <dt className="font-semibold text-white">Email</dt>
+              <dd className="text-neutral-400">{contactEmail}</dd>
             </div>
             <div>
-              <dt className="font-semibold text-neutral-950">Ubicación</dt>
-              <dd className="text-neutral-500">Santa Fe, Argentina</dd>
+              <dt className="font-semibold text-white">Ubicación</dt>
+              <dd className="text-neutral-400">Santa Fe, Argentina</dd>
             </div>
           </dl>
         </div>

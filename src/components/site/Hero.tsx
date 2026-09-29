@@ -1,4 +1,14 @@
-export function Hero({ videoUrl }: { videoUrl: string }) {
+type Props = {
+  videoUrl: string;
+  title: string;
+  subtitle: string;
+  ctaLabel: string | null;
+  ctaUrl: string | null;
+};
+
+export function Hero({ videoUrl, title, subtitle, ctaLabel, ctaUrl }: Props) {
+  const showTicketCta = Boolean(ctaLabel && ctaUrl);
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 text-white">
       <video
@@ -19,12 +29,10 @@ export function Hero({ videoUrl }: { videoUrl: string }) {
 
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
-          Experiencias en vivo
+          {title}
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-300 sm:text-xl">
-          {/* [COPY HERO] — reemplazar por la bajada definitiva de PC */}
-          PC es una productora especializada en el desarrollo de experiencias
-          en vivo: shows, festivales y eventos corporativos.
+          {subtitle}
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -40,6 +48,16 @@ export function Hero({ videoUrl }: { videoUrl: string }) {
           >
             Conocé la productora
           </a>
+          {showTicketCta && (
+            <a
+              href={ctaUrl!}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/40 px-8 py-3 text-sm font-semibold text-white transition hover:border-white"
+            >
+              {ctaLabel}
+            </a>
+          )}
         </div>
       </div>
     </section>

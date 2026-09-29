@@ -68,6 +68,10 @@ model InstagramConfig {
 model SiteSettings {
   id             String   @id @default("singleton")
   heroVideoUrl   String?
+  heroTitle      String?
+  heroSubtitle   String?
+  heroCtaLabel   String?
+  heroCtaUrl     String?
   marqueeArtists String[] @default([])
   updatedAt      DateTime @updatedAt
 }

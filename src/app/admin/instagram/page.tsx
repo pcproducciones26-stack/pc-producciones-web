@@ -10,7 +10,10 @@ export const dynamic = "force-dynamic";
 
 export default async function InstagramAdminPage() {
   const posts = await prisma.instagramPost.findMany({
-    orderBy: { postedAt: "desc" },
+    orderBy: [
+      { eventDate: { sort: "desc", nulls: "last" } },
+      { postedAt: "desc" },
+    ],
   });
 
   return (

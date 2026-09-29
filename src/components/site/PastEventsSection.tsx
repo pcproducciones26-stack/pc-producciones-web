@@ -1,25 +1,32 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PastEventCard } from "./PastEventCard";
-import type { PublicInstagramPost } from "@/lib/types";
+import { EventCard } from "./EventCard";
+import type { PublicEvent } from "@/lib/types";
+
+type EventsResponse = {
+  events: PublicEvent[];
+  page: number;
+  totalPages: number;
+};
 
 export function PastEventsSection() {
-  const [posts, setPosts] = useState<PublicInstagramPost[] | null>(null);
+  const [data, setData] = useState<EventsResponse | null>(null);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/instagram-posts")
+    fetch(`/api/events/past?page=${page}&pageSize=9`)
       .then((res) => res.json())
-      .then((json: { posts: PublicInstagramPost[] }) => {
-        if (!cancelled) setPosts(json.posts);
+      .then((json: EventsResponse) => {
+        if (!cancelled) setData(json);
       });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [page]);
 
-  if (posts && posts.length === 0) {
+  if (data && data.events.length === 0 && page === 1) {
     return null;
   }
 
@@ -33,17 +40,43 @@ export function PastEventsSection() {
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Eventos pasados
           </h2>
-          <p className="mt-3 text-neutral-500">
-            Algunos de los últimos eventos producidos por PC
-          </p>
+          <p className="mt-3 text-neutral-500">Shows que ya se hicieron</p>
         </div>
 
-        {posts && posts.length > 0 && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PastEventCard key={post.id} post={post} />
-            ))}
-          </div>
+        {data && data.events.length > 0 && (
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {data.events.map((event) => (
+                <EventCard key={event.id} event={event} past />
+              ))}
+            </div>
+
+            {data.totalPages > 1 && (
+              <div className="mt-12 flex items-center justify-center gap-4">
+                <button
+                  type="button"
+                  disabled={page <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium disabled:opacity-30"
+                >
+                  Anteriores
+                </button>
+                <span className="text-sm text-neutral-500">
+                  {data.page} / {data.totalPages}
+                </span>
+                <button
+                  type="button"
+                  disabled={page >= data.totalPages}
+                  onClick={() =>
+                    setPage((p) => Math.min(data.totalPages, p + 1))
+                  }
+                  className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium disabled:opacity-30"
+                >
+                  Siguientes
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

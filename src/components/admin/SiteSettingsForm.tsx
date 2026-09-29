@@ -6,15 +6,30 @@ import { upload } from "@vercel/blob/client";
 
 type Props = {
   initialHeroVideoUrl: string;
+  initialHeroTitle: string;
+  initialHeroSubtitle: string;
+  initialHeroCtaLabel: string;
+  initialHeroCtaUrl: string;
   initialArtists: string[];
 };
 
 export function SiteSettingsForm({
   initialHeroVideoUrl,
+  initialHeroTitle,
+  initialHeroSubtitle,
+  initialHeroCtaLabel,
+  initialHeroCtaUrl,
   initialArtists,
 }: Props) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [heroTitle, setHeroTitle] = useState(initialHeroTitle);
+  const [heroSubtitle, setHeroSubtitle] = useState(initialHeroSubtitle);
+  const [heroCtaLabel, setHeroCtaLabel] = useState(initialHeroCtaLabel);
+  const [heroCtaUrl, setHeroCtaUrl] = useState(initialHeroCtaUrl);
+  const [savingHeroText, setSavingHeroText] = useState(false);
+  const [heroTextSaved, setHeroTextSaved] = useState(false);
 
   const [heroVideoUrl, setHeroVideoUrl] = useState(initialHeroVideoUrl);
   const [uploading, setUploading] = useState(false);
@@ -25,6 +40,26 @@ export function SiteSettingsForm({
   );
   const [savingArtists, setSavingArtists] = useState(false);
   const [artistsSaved, setArtistsSaved] = useState(false);
+
+  const saveHeroText = async () => {
+    setSavingHeroText(true);
+    setHeroTextSaved(false);
+    const res = await fetch("/api/admin/site-settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        heroTitle,
+        heroSubtitle,
+        heroCtaLabel,
+        heroCtaUrl,
+      }),
+    });
+    setSavingHeroText(false);
+    if (res.ok) {
+      setHeroTextSaved(true);
+      router.refresh();
+    }
+  };
 
   const onVideoChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -87,12 +122,91 @@ export function SiteSettingsForm({
     <div className="flex flex-col gap-8">
       <section className="rounded-2xl border border-neutral-200 bg-white p-6">
         <h2 className="text-lg font-semibold text-neutral-950">
+          Texto principal del hero
+        </h2>
+        <p className="mt-1 text-sm text-neutral-500">
+          El título y la bajada que aparecen sobre el video. El botón de
+          entradas es opcional: si completás las dos cosas (texto y link),
+          aparece al lado de los otros dos botones — si dejás alguno vacío,
+          no se muestra.
+        </p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          <div>
+            <label className="text-sm font-medium" htmlFor="heroTitle">
+              Título
+            </label>
+            <input
+              id="heroTitle"
+              value={heroTitle}
+              onChange={(e) => setHeroTitle(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium" htmlFor="heroSubtitle">
+              Bajada
+            </label>
+            <textarea
+              id="heroSubtitle"
+              rows={3}
+              value={heroSubtitle}
+              onChange={(e) => setHeroSubtitle(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label className="text-sm font-medium" htmlFor="heroCtaLabel">
+                Texto del botón de entradas (opcional)
+              </label>
+              <input
+                id="heroCtaLabel"
+                placeholder="Comprar entradas"
+                value={heroCtaLabel}
+                onChange={(e) => setHeroCtaLabel(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium" htmlFor="heroCtaUrl">
+                Link de venta de entradas (opcional)
+              </label>
+              <input
+                id="heroCtaUrl"
+                placeholder="https://..."
+                value={heroCtaUrl}
+                onChange={(e) => setHeroCtaUrl(e.target.value)}
+                className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={saveHeroText}
+            disabled={savingHeroText}
+            className="rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-50"
+          >
+            {savingHeroText ? "Guardando..." : "Guardar cambios"}
+          </button>
+          {heroTextSaved && (
+            <span className="text-sm text-green-600">Guardado.</span>
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-neutral-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-neutral-950">
           Video de fondo del hero
         </h2>
         <p className="mt-1 text-sm text-neutral-500">
-          Se muestra en loop, sin sonido, detrás del título &quot;Experiencias
-          en vivo&quot;. Formato MP4, hasta 100MB (ideal: menos de 15MB para
-          que cargue rápido).
+          Se muestra en loop, sin sonido, detrás del título. Formato MP4,
+          hasta 100MB (ideal: menos de 15MB para que cargue rápido).
         </p>
 
         <video

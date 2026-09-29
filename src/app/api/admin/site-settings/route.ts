@@ -3,6 +3,7 @@ import {
   getSiteSettings,
   updateMarqueeArtists,
   updateHeroVideoUrl,
+  updateHeroText,
 } from "@/lib/site-settings";
 
 export async function GET() {
@@ -22,6 +23,24 @@ export async function PUT(request: NextRequest) {
 
   if (typeof body.heroVideoUrl === "string" && body.heroVideoUrl.trim()) {
     await updateHeroVideoUrl(body.heroVideoUrl.trim());
+  }
+
+  if (
+    typeof body.heroTitle === "string" &&
+    typeof body.heroSubtitle === "string"
+  ) {
+    await updateHeroText({
+      heroTitle: body.heroTitle.trim(),
+      heroSubtitle: body.heroSubtitle.trim(),
+      heroCtaLabel:
+        typeof body.heroCtaLabel === "string" && body.heroCtaLabel.trim()
+          ? body.heroCtaLabel.trim()
+          : null,
+      heroCtaUrl:
+        typeof body.heroCtaUrl === "string" && body.heroCtaUrl.trim()
+          ? body.heroCtaUrl.trim()
+          : null,
+    });
   }
 
   const settings = await getSiteSettings();

@@ -3,7 +3,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   const posts = await prisma.instagramPost.findMany({
-    orderBy: { postedAt: "desc" },
+    orderBy: [
+      { eventDate: { sort: "desc", nulls: "last" } },
+      { postedAt: "desc" },
+    ],
     take: 18,
   });
   return NextResponse.json({ posts });
