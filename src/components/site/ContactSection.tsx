@@ -40,7 +40,10 @@ export function ContactSection({ contactEmail }: Props) {
   };
 
   return (
-    <section id="contacto" className="bg-neutral-50 py-24">
+    <section
+      id="contacto"
+      className="scroll-mt-24 bg-neutral-50 py-24 sm:scroll-mt-36"
+    >
       <div className="mx-auto grid max-w-5xl grid-cols-1 gap-12 px-6 md:grid-cols-2">
         <div>
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

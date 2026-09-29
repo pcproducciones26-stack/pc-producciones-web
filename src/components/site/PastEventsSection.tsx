@@ -24,7 +24,10 @@ export function PastEventsSection() {
   }
 
   return (
-    <section id="eventos-pasados" className="bg-white py-24">
+    <section
+      id="eventos-pasados"
+      className="scroll-mt-24 bg-white py-24 sm:scroll-mt-36"
+    >
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

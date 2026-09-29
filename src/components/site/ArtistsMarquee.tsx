@@ -2,7 +2,10 @@ export function ArtistsMarquee({ artists }: { artists: string[] }) {
   const items = [...artists, ...artists];
 
   return (
-    <section id="artistas" className="border-y border-neutral-200 bg-white py-8">
+    <section
+      id="artistas"
+      className="scroll-mt-24 border-y border-neutral-200 bg-white py-8 sm:scroll-mt-36"
+    >
       <div className="overflow-hidden">
         <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">
           {items.map((artist, i) => (
