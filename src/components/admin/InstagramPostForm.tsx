@@ -9,7 +9,12 @@ import {
   type InstagramPostInput,
 } from "@/lib/validations";
 
-export function AddInstagramPostForm() {
+type Props = {
+  postId?: string;
+  defaultValues?: Partial<InstagramPostInput>;
+};
+
+export function InstagramPostForm({ postId, defaultValues }: Props) {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -20,22 +25,33 @@ export function AddInstagramPostForm() {
     formState: { errors, isSubmitting },
   } = useForm<InstagramPostInput>({
     resolver: zodResolver(instagramPostSchema),
+    defaultValues,
   });
 
   const onSubmit = async (data: InstagramPostInput) => {
     setServerError(null);
-    const res = await fetch("/api/admin/instagram-posts", {
-      method: "POST",
+
+    const url = postId
+      ? `/api/admin/instagram-posts/${postId}`
+      : "/api/admin/instagram-posts";
+    const method = postId ? "PUT" : "POST";
+
+    const res = await fetch(url, {
+      method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     if (!res.ok) {
-      setServerError("No se pudo agregar la foto. Revisá la URL.");
+      setServerError("No se pudo guardar la foto. Revisá la URL.");
       return;
     }
 
-    reset();
+    if (postId) {
+      router.push("/admin/instagram");
+    } else {
+      reset();
+    }
     router.refresh();
   };
 
@@ -137,7 +153,11 @@ export function AddInstagramPostForm() {
           disabled={isSubmitting}
           className="rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
         >
-          {isSubmitting ? "Agregando..." : "+ Agregar foto"}
+          {isSubmitting
+            ? "Guardando..."
+            : postId
+              ? "Guardar cambios"
+              : "+ Agregar foto"}
         </button>
       </div>
     </form>

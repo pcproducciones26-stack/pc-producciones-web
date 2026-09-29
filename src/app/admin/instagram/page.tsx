@@ -1,8 +1,9 @@
 import { Suspense } from "react";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { InstagramConnectionPanel } from "@/components/admin/InstagramConnectionPanel";
-import { AddInstagramPostForm } from "@/components/admin/AddInstagramPostForm";
+import { InstagramPostForm } from "@/components/admin/InstagramPostForm";
 import { DeleteButton } from "@/components/admin/DeleteButton";
 
 export const dynamic = "force-dynamic";
@@ -37,7 +38,7 @@ export default async function InstagramAdminPage() {
           Agregar foto manualmente
         </h2>
         <div className="mt-3">
-          <AddInstagramPostForm />
+          <InstagramPostForm />
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
@@ -70,24 +71,28 @@ export default async function InstagramAdminPage() {
                       .join(" · ")}
                   </p>
                 )}
-                <div className="mt-1 flex items-center justify-between gap-2">
-                  {post.postUrl ? (
-                    <a
-                      href={post.postUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="truncate text-xs font-medium text-neutral-500 hover:text-neutral-950"
-                    >
-                      Ver post
-                    </a>
-                  ) : (
-                    <span />
-                  )}
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <Link
+                    href={`/admin/instagram/${post.id}/edit`}
+                    className="text-xs font-medium text-neutral-950 hover:opacity-70"
+                  >
+                    Editar
+                  </Link>
                   <DeleteButton
                     endpoint={`/api/admin/instagram-posts/${post.id}`}
                     confirmMessage="¿Eliminar esta foto de la galería?"
                   />
                 </div>
+                {post.postUrl && (
+                  <a
+                    href={post.postUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 block truncate text-xs text-neutral-400 hover:text-neutral-950"
+                  >
+                    Ver post
+                  </a>
+                )}
               </div>
             </div>
           ))}
