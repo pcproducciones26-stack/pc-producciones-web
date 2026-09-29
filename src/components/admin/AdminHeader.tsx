@@ -37,7 +37,17 @@ export function AdminHeader({
             );
           })}
         </nav>
-        <LogoutButton />
+        <div className="flex items-center gap-4">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-neutral-500 hover:text-neutral-950"
+          >
+            Ver sitio ↗
+          </a>
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );
