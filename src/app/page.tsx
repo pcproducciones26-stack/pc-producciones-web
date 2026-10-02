@@ -23,6 +23,7 @@ export default async function Home() {
     marqueeArtists,
     aboutText,
     aboutAreas,
+    instagramFeedEnabled,
   } = await getSiteSettings();
 
   return (
@@ -41,7 +42,7 @@ export default async function Home() {
         <PastEventsSection />
         <FeaturedPastEventsSection />
         <AboutSection text={aboutText} areas={aboutAreas} />
-        <InstagramFeed />
+        {instagramFeedEnabled && <InstagramFeed />}
         <ContactSection contactEmail={contactEmail} />
       </main>
       <Footer />

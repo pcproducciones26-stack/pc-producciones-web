@@ -44,6 +44,7 @@ export async function getSiteSettings() {
       settings?.aboutAreas && settings.aboutAreas.length > 0
         ? settings.aboutAreas
         : DEFAULT_ABOUT_AREAS,
+    instagramFeedEnabled: settings?.instagramFeedEnabled ?? true,
   };
 }
 
@@ -84,5 +85,13 @@ export async function updateAboutSection(data: {
     where: { id: SETTINGS_ID },
     create: { id: SETTINGS_ID, ...data },
     update: data,
+  });
+}
+
+export async function updateInstagramFeedEnabled(enabled: boolean) {
+  return prisma.siteSettings.upsert({
+    where: { id: SETTINGS_ID },
+    create: { id: SETTINGS_ID, instagramFeedEnabled: enabled },
+    update: { instagramFeedEnabled: enabled },
   });
 }

@@ -5,6 +5,7 @@ import {
   updateHeroVideoUrl,
   updateHeroText,
   updateAboutSection,
+  updateInstagramFeedEnabled,
 } from "@/lib/site-settings";
 
 export async function GET() {
@@ -54,6 +55,10 @@ export async function PUT(request: NextRequest) {
       aboutText: body.aboutText.trim(),
       aboutAreas: areas,
     });
+  }
+
+  if (typeof body.instagramFeedEnabled === "boolean") {
+    await updateInstagramFeedEnabled(body.instagramFeedEnabled);
   }
 
   const settings = await getSiteSettings();
