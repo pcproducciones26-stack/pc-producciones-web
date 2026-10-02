@@ -13,7 +13,6 @@ type Props = {
   initialArtists: string[];
   initialAboutText: string;
   initialAboutAreas: string[];
-  initialInstagramFeedEnabled: boolean;
 };
 
 export function SiteSettingsForm({
@@ -25,7 +24,6 @@ export function SiteSettingsForm({
   initialArtists,
   initialAboutText,
   initialAboutAreas,
-  initialInstagramFeedEnabled,
 }: Props) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -53,26 +51,6 @@ export function SiteSettingsForm({
   );
   const [savingAbout, setSavingAbout] = useState(false);
   const [aboutSaved, setAboutSaved] = useState(false);
-
-  const [instagramFeedEnabled, setInstagramFeedEnabled] = useState(
-    initialInstagramFeedEnabled
-  );
-  const [savingInstagramFeed, setSavingInstagramFeed] = useState(false);
-
-  const toggleInstagramFeed = async () => {
-    const next = !instagramFeedEnabled;
-    setSavingInstagramFeed(true);
-    const res = await fetch("/api/admin/site-settings", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ instagramFeedEnabled: next }),
-    });
-    setSavingInstagramFeed(false);
-    if (res.ok) {
-      setInstagramFeedEnabled(next);
-      router.refresh();
-    }
-  };
 
   const saveHeroText = async () => {
     setSavingHeroText(true);
@@ -410,38 +388,6 @@ export function SiteSettingsForm({
           {aboutSaved && (
             <span className="text-sm text-green-600">Guardado.</span>
           )}
-        </div>
-      </section>
-
-      <section className="rounded-2xl border border-neutral-200 bg-white p-6">
-        <h2 className="text-lg font-semibold text-neutral-950">
-          Sección &quot;Seguinos en Instagram&quot;
-        </h2>
-        <p className="mt-1 text-sm text-neutral-500">
-          Controla si se muestra en la home el bloque con el widget del feed
-          de Instagram (@pcproduccionesok).
-        </p>
-
-        <div className="mt-4 flex items-center gap-3">
-          <button
-            type="button"
-            onClick={toggleInstagramFeed}
-            disabled={savingInstagramFeed}
-            role="switch"
-            aria-checked={instagramFeedEnabled}
-            className={`relative h-7 w-12 rounded-full transition disabled:opacity-50 ${
-              instagramFeedEnabled ? "bg-neutral-950" : "bg-neutral-300"
-            }`}
-          >
-            <span
-              className={`absolute top-1 h-5 w-5 rounded-full bg-white transition ${
-                instagramFeedEnabled ? "left-6" : "left-1"
-              }`}
-            />
-          </button>
-          <span className="text-sm font-medium text-neutral-950">
-            {instagramFeedEnabled ? "Activada" : "Desactivada"}
-          </span>
         </div>
       </section>
     </div>

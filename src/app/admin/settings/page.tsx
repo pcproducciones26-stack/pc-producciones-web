@@ -28,7 +28,6 @@ export default async function SiteSettingsPage() {
             initialArtists={settings.marqueeArtists}
             initialAboutText={settings.aboutText}
             initialAboutAreas={settings.aboutAreas}
-            initialInstagramFeedEnabled={settings.instagramFeedEnabled}
           />
         </div>
       </div>

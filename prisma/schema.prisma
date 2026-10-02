@@ -61,7 +61,6 @@ model SiteSettings {
   marqueeArtists String[] @default([])
   aboutText      String?
   aboutAreas     String[] @default([])
-  instagramFeedEnabled Boolean @default(true)
   updatedAt      DateTime @updatedAt
 }
 
