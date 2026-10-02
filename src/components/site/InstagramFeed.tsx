@@ -1,3 +1,5 @@
+"use client";
+
 import { ElfsightWidget } from "next-elfsight-widget";
 
 const WIDGET_ID = process.env.NEXT_PUBLIC_INSTAGRAM_WIDGET_ID;
