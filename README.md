@@ -54,14 +54,19 @@ Landing page de la productora de eventos PC, con panel de administración para c
 
 Hay dos secciones distintas relacionadas con Instagram en la home, con fuentes de datos separadas:
 
-- **"Seguinos en Instagram"** (`InstagramFeed`): un widget de terceros (LightWidget) embebido a todo el ancho, controlado por `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID`. Sin ese id configurado, se muestra un cartel con link al perfil.
+- **"Seguinos en Instagram"** (`InstagramFeed`): un widget de terceros (Elfsight) embebido a todo el ancho, controlado por `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID`. Sin ese id configurado, se muestra un cartel con link al perfil.
 - **"Eventos pasados"** (`PastEventsSection`): lee de la tabla `InstagramPost`, la misma que se administra en `/admin/instagram`. Cada foto se muestra con su descripción superpuesta y linkea al post/reel real al hacer click.
 
 `/admin/instagram` alimenta **solo** la sección "Eventos pasados" — las fotos que cargues ahí (a mano o vía la sincronización con la API de Meta) van a esa sección, no al widget de "Seguinos en Instagram" (que es independiente).
 
-### Setup del widget de LightWidget
+### Setup del widget de Elfsight
 
-Crear una cuenta en [lightwidget.com](https://lightwidget.com/create-account), generar un widget para `@pcproduccionesok`, y cargar el id que te dan (el código entre `/widgets/` y `.html` del embed) en `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID` (en Vercel y en `.env` local).
+Es gratis hasta 200 vistas/mes (con una marca "Elfsight" chica en el widget). Pasos:
+
+1. Crear una cuenta en [elfsight.com](https://elfsight.com/).
+2. Crear un widget de tipo **Instagram Feed**, conectarlo a la cuenta `@pcproduccionesok`.
+3. Publicar el widget y copiar su **Widget ID** (un UUID que aparece en el código de embed o en la URL del editor).
+4. Cargar ese id en `NEXT_PUBLIC_INSTAGRAM_WIDGET_ID` (en Vercel y en `.env` local).
 
 ### Setup de la galería propia (API de Meta) — opcional, solo si se vuelve a activar
 
@@ -90,6 +95,6 @@ Ver la sección 6 de [PROMPT_DESARROLLO_LANDING.md](./PROMPT_DESARROLLO_LANDING.
 
 - [ ] El video del hero es de stock (Pexels, uso libre comercial) por defecto — subir uno real desde `/admin/settings`.
 - [ ] Cargar los nombres reales de artistas en la marquesina desde `/admin/settings`.
-- [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) o configurar el widget de LightWidget para que el feed se sincronice solo.
+- [ ] Conectar la cuenta de Instagram desde `/admin/instagram` (ver sección de arriba) o configurar el widget de Elfsight para que el feed se sincronice solo.
 - [ ] **El formulario de contacto no envía emails todavía** — sin `RESEND_API_KEY` configurada, no se manda ningún mail. Como alternativa ya funcional, cada consulta queda guardada y visible en `/admin/messages`. Si más adelante se quiere además por email, hay que crear una cuenta en [resend.com](https://resend.com) y cargar la API key.
 - [x] Dominio (`pcproducciones.com.ar`) — activo y funcionando en producción.

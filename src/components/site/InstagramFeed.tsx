@@ -1,4 +1,4 @@
-import Script from "next/script";
+import { ElfsightWidget } from "next-elfsight-widget";
 
 const WIDGET_ID = process.env.NEXT_PUBLIC_INSTAGRAM_WIDGET_ID;
 const INSTAGRAM_URL = "https://www.instagram.com/pcproduccionesok/";
@@ -22,23 +22,11 @@ export function InstagramFeed() {
 
       <div className="mt-12 w-full px-6">
         {WIDGET_ID ? (
-          <>
-            <Script
-              src="https://cdn.lightwidget.com/widgets/lightwidget.js"
-              strategy="lazyOnload"
-            />
-            <iframe
-              title="Feed de Instagram"
-              src={`https://lightwidget.com/widgets/${WIDGET_ID}.html`}
-              scrolling="no"
-              className="lightwidget-widget w-full border-0"
-              style={{ minHeight: 400, overflow: "hidden" }}
-            />
-          </>
+          <ElfsightWidget widgetId={WIDGET_ID} />
         ) : (
           <div className="mx-auto flex h-48 max-w-2xl flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-neutral-300 text-sm text-neutral-400">
             <p>
-              Configurar NEXT_PUBLIC_INSTAGRAM_WIDGET_ID (LightWidget) para
+              Configurar NEXT_PUBLIC_INSTAGRAM_WIDGET_ID (Elfsight) para
               mostrar el feed acá.
             </p>
             <a
