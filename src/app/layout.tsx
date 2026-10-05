@@ -53,9 +53,11 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  verification: process.env.GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  verification: {
+    google:
+      process.env.GOOGLE_SITE_VERIFICATION ??
+      "1tGD4KCiFStGw2pJ48UTuflLu3KnMBuaTMOluuNHQ_Q",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
