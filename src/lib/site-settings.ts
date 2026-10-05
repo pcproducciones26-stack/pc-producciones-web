@@ -16,7 +16,7 @@ export const DEFAULT_HERO_TITLE = "Experiencias en vivo";
 export const DEFAULT_HERO_SUBTITLE =
   "PC es una productora especializada en el desarrollo de experiencias en vivo: shows, festivales y eventos corporativos.";
 export const DEFAULT_ABOUT_TEXT =
-  "PC es una productora especializada en el desarrollo de experiencias en vivo. Desde hace años trabajamos junto a artistas nacionales e internacionales y marcas líderes para crear shows, festivales y eventos corporativos memorables.";
+  "PC Producciones (Producciones Clandestinas) es una productora especializada en el desarrollo de experiencias en vivo. Desde hace años trabajamos junto a artistas nacionales e internacionales y marcas líderes para crear shows, festivales y eventos corporativos memorables.";
 export const DEFAULT_ABOUT_AREAS = [
   "Producción de shows y conciertos",
   "Festivales",

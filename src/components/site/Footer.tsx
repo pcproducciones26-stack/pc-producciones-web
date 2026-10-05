@@ -19,7 +19,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 text-center">
         <Image
           src="/logos/pc-blanco.png"
-          alt="PC Producciones"
+          alt="PC Producciones — Producciones Clandestinas"
           width={180}
           height={60}
           className="h-14 w-auto"
@@ -49,7 +49,7 @@ export function Footer() {
         </div>
 
         <div className="flex w-full flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} PC Producciones. Todos los derechos reservados.</p>
+          <p>© {new Date().getFullYear()} PC Producciones — Producciones Clandestinas. Todos los derechos reservados.</p>
           <a
             href="#top"
             className="font-medium text-white hover:opacity-70"
