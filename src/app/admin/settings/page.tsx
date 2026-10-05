@@ -15,7 +15,8 @@ export default async function SiteSettingsPage() {
         <h1 className="text-2xl font-bold text-neutral-950">Configuración</h1>
         <p className="mt-1 text-sm text-neutral-500">
           Contenido general del sitio: el texto y video del hero, la
-          marquesina de artistas, y &quot;Quiénes somos&quot;.
+          marquesina de artistas, &quot;Eventos pasados destacados&quot; y
+          &quot;Quiénes somos&quot;.
         </p>
 
         <div className="mt-8">
@@ -28,6 +29,8 @@ export default async function SiteSettingsPage() {
             initialArtists={settings.marqueeArtists}
             initialAboutText={settings.aboutText}
             initialAboutAreas={settings.aboutAreas}
+            initialFeaturedTitle={settings.featuredTitle}
+            initialFeaturedSubtitle={settings.featuredSubtitle}
           />
         </div>
       </div>

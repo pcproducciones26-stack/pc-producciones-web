@@ -4,7 +4,12 @@ import { useEffect, useState } from "react";
 import { PastEventCard } from "./PastEventCard";
 import type { PublicInstagramPost } from "@/lib/types";
 
-export function FeaturedPastEventsSection() {
+type Props = {
+  title: string;
+  subtitle: string;
+};
+
+export function FeaturedPastEventsSection({ title, subtitle }: Props) {
   const [posts, setPosts] = useState<PublicInstagramPost[] | null>(null);
 
   useEffect(() => {
@@ -26,15 +31,15 @@ export function FeaturedPastEventsSection() {
   return (
     <section
       id="eventos-pasados-destacados"
-      className="scroll-mt-24 bg-white py-24 sm:scroll-mt-36"
+      className="scroll-mt-24 border-t border-white/10 bg-neutral-950 py-24 sm:scroll-mt-36"
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Eventos pasados destacados
+            {title}
           </h2>
-          <p className="mt-3 text-neutral-500">
-            Algunos de los últimos eventos producidos por PC
+          <p className="mt-3 text-neutral-400">
+            {subtitle}
           </p>
         </div>
 

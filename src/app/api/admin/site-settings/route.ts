@@ -5,6 +5,7 @@ import {
   updateHeroVideoUrl,
   updateHeroText,
   updateAboutSection,
+  updateFeaturedSection,
 } from "@/lib/site-settings";
 
 export async function GET() {
@@ -53,6 +54,16 @@ export async function PUT(request: NextRequest) {
     await updateAboutSection({
       aboutText: body.aboutText.trim(),
       aboutAreas: areas,
+    });
+  }
+
+  if (
+    typeof body.featuredTitle === "string" &&
+    typeof body.featuredSubtitle === "string"
+  ) {
+    await updateFeaturedSection({
+      featuredTitle: body.featuredTitle.trim(),
+      featuredSubtitle: body.featuredSubtitle.trim(),
     });
   }
 

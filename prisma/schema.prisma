@@ -61,6 +61,8 @@ model SiteSettings {
   marqueeArtists String[] @default([])
   aboutText      String?
   aboutAreas     String[] @default([])
+  featuredTitle    String?
+  featuredSubtitle String?
   updatedAt      DateTime @updatedAt
 }
 

@@ -23,10 +23,12 @@ export default async function Home() {
     marqueeArtists,
     aboutText,
     aboutAreas,
+    featuredTitle,
+    featuredSubtitle,
   } = await getSiteSettings();
 
   return (
-    <div id="top">
+    <div id="top" className="bg-neutral-950 text-white">
       <Header />
       <main>
         <Hero
@@ -39,7 +41,10 @@ export default async function Home() {
         <ArtistsMarquee artists={marqueeArtists} />
         <EventsSection />
         <PastEventsSection />
-        <FeaturedPastEventsSection />
+        <FeaturedPastEventsSection
+          title={featuredTitle}
+          subtitle={featuredSubtitle}
+        />
         <AboutSection text={aboutText} areas={aboutAreas} />
         <InstagramFeed />
         <ContactSection contactEmail={contactEmail} />

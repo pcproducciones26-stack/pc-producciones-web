@@ -13,6 +13,8 @@ type Props = {
   initialArtists: string[];
   initialAboutText: string;
   initialAboutAreas: string[];
+  initialFeaturedTitle: string;
+  initialFeaturedSubtitle: string;
 };
 
 export function SiteSettingsForm({
@@ -24,6 +26,8 @@ export function SiteSettingsForm({
   initialArtists,
   initialAboutText,
   initialAboutAreas,
+  initialFeaturedTitle,
+  initialFeaturedSubtitle,
 }: Props) {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,6 +55,13 @@ export function SiteSettingsForm({
   );
   const [savingAbout, setSavingAbout] = useState(false);
   const [aboutSaved, setAboutSaved] = useState(false);
+
+  const [featuredTitle, setFeaturedTitle] = useState(initialFeaturedTitle);
+  const [featuredSubtitle, setFeaturedSubtitle] = useState(
+    initialFeaturedSubtitle
+  );
+  const [savingFeatured, setSavingFeatured] = useState(false);
+  const [featuredSaved, setFeaturedSaved] = useState(false);
 
   const saveHeroText = async () => {
     setSavingHeroText(true);
@@ -149,6 +160,21 @@ export function SiteSettingsForm({
     setSavingAbout(false);
     if (res.ok) {
       setAboutSaved(true);
+      router.refresh();
+    }
+  };
+
+  const saveFeatured = async () => {
+    setSavingFeatured(true);
+    setFeaturedSaved(false);
+    const res = await fetch("/api/admin/site-settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ featuredTitle, featuredSubtitle }),
+    });
+    setSavingFeatured(false);
+    if (res.ok) {
+      setFeaturedSaved(true);
       router.refresh();
     }
   };
@@ -320,6 +346,56 @@ export function SiteSettingsForm({
             {savingArtists ? "Guardando..." : "Guardar cambios"}
           </button>
           {artistsSaved && (
+            <span className="text-sm text-green-600">Guardado.</span>
+          )}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-neutral-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-neutral-950">
+          Eventos pasados destacados
+        </h2>
+        <p className="mt-1 text-sm text-neutral-500">
+          El título y la bajada de esa sección. Si los dejás vacíos, se usa
+          el texto por defecto.
+        </p>
+
+        <div className="mt-4 flex flex-col gap-4">
+          <div>
+            <label className="text-sm font-medium" htmlFor="featuredTitle">
+              Título
+            </label>
+            <input
+              id="featuredTitle"
+              value={featuredTitle}
+              onChange={(e) => setFeaturedTitle(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            />
+          </div>
+
+          <div>
+            <label className="text-sm font-medium" htmlFor="featuredSubtitle">
+              Bajada
+            </label>
+            <input
+              id="featuredSubtitle"
+              value={featuredSubtitle}
+              onChange={(e) => setFeaturedSubtitle(e.target.value)}
+              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={saveFeatured}
+            disabled={savingFeatured}
+            className="rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-50"
+          >
+            {savingFeatured ? "Guardando..." : "Guardar cambios"}
+          </button>
+          {featuredSaved && (
             <span className="text-sm text-green-600">Guardado.</span>
           )}
         </div>

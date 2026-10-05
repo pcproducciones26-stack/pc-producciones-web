@@ -7,7 +7,7 @@ export function AboutSection({ text, areas }: Props) {
   return (
     <section
       id="quienes-somos"
-      className="scroll-mt-24 bg-neutral-950 py-24 text-white sm:scroll-mt-36"
+      className="scroll-mt-24 border-t border-white/10 bg-neutral-950 py-24 text-white sm:scroll-mt-36"
     >
       <div className="mx-auto max-w-4xl px-6 text-center">
         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">

@@ -68,53 +68,53 @@ export function ContactSection({ contactEmail }: Props) {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 rounded-2xl border border-neutral-200 bg-white p-6"
+          className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-neutral-900 p-6"
         >
           <div>
-            <label className="text-sm font-medium" htmlFor="name">
+            <label className="text-sm font-medium text-neutral-200" htmlFor="name">
               Nombre
             </label>
             <input
               id="name"
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+              className="mt-1 w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-white"
               {...register("name")}
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-600">
+              <p className="mt-1 text-xs text-red-400">
                 {errors.name.message}
               </p>
             )}
           </div>
 
           <div>
-            <label className="text-sm font-medium" htmlFor="email">
+            <label className="text-sm font-medium text-neutral-200" htmlFor="email">
               Email
             </label>
             <input
               id="email"
               type="email"
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+              className="mt-1 w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-white"
               {...register("email")}
             />
             {errors.email && (
-              <p className="mt-1 text-xs text-red-600">
+              <p className="mt-1 text-xs text-red-400">
                 {errors.email.message}
               </p>
             )}
           </div>
 
           <div>
-            <label className="text-sm font-medium" htmlFor="message">
+            <label className="text-sm font-medium text-neutral-200" htmlFor="message">
               Mensaje
             </label>
             <textarea
               id="message"
               rows={4}
-              className="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-950"
+              className="mt-1 w-full rounded-lg border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm text-white outline-none focus:border-white"
               {...register("message")}
             />
             {errors.message && (
-              <p className="mt-1 text-xs text-red-600">
+              <p className="mt-1 text-xs text-red-400">
                 {errors.message.message}
               </p>
             )}
@@ -123,18 +123,18 @@ export function ContactSection({ contactEmail }: Props) {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="mt-2 rounded-full bg-neutral-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50"
+            className="mt-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 disabled:opacity-50"
           >
             {status === "sending" ? "Enviando..." : "Enviar mensaje"}
           </button>
 
           {status === "sent" && (
-            <p className="text-sm text-green-600">
+            <p className="text-sm text-green-400">
               ¡Gracias! Te vamos a responder a la brevedad.
             </p>
           )}
           {status === "error" && (
-            <p className="text-sm text-red-600">
+            <p className="text-sm text-red-400">
               Ocurrió un error al enviar el mensaje. Probá de nuevo.
             </p>
           )}

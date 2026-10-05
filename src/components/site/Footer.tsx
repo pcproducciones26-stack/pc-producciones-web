@@ -15,10 +15,10 @@ const NAV_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="bg-white py-12 text-neutral-950">
+    <footer className="border-t border-white/10 bg-neutral-950 py-12 text-white">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 text-center">
         <Image
-          src="/logos/pc-negro.png"
+          src="/logos/pc-blanco.png"
           alt="PC Producciones"
           width={180}
           height={60}
@@ -34,25 +34,25 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="flex gap-6 text-sm text-neutral-500">
+        <div className="flex gap-6 text-sm text-neutral-400">
           {SOCIAL_LINKS.map((social) => (
             <a
               key={social.label}
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-neutral-950"
+              className="hover:text-white"
             >
               {social.label}
             </a>
           ))}
         </div>
 
-        <div className="flex w-full flex-col items-center gap-4 border-t border-neutral-200 pt-6 text-xs text-neutral-400 sm:flex-row sm:justify-between">
+        <div className="flex w-full flex-col items-center gap-4 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} PC Producciones. Todos los derechos reservados.</p>
           <a
             href="#top"
-            className="font-medium text-neutral-950 hover:opacity-70"
+            className="font-medium text-white hover:opacity-70"
           >
             Volver arriba
           </a>

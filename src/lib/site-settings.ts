@@ -24,6 +24,10 @@ export const DEFAULT_ABOUT_AREAS = [
   "Gira y booking de artistas",
 ];
 
+export const DEFAULT_FEATURED_TITLE = "Eventos pasados destacados";
+export const DEFAULT_FEATURED_SUBTITLE =
+  "Algunos de los últimos eventos producidos por PC";
+
 export async function getSiteSettings() {
   const settings = await prisma.siteSettings.findUnique({
     where: { id: SETTINGS_ID },
@@ -44,6 +48,8 @@ export async function getSiteSettings() {
       settings?.aboutAreas && settings.aboutAreas.length > 0
         ? settings.aboutAreas
         : DEFAULT_ABOUT_AREAS,
+    featuredTitle: settings?.featuredTitle || DEFAULT_FEATURED_TITLE,
+    featuredSubtitle: settings?.featuredSubtitle || DEFAULT_FEATURED_SUBTITLE,
   };
 }
 
@@ -79,6 +85,17 @@ export async function updateHeroText(data: {
 export async function updateAboutSection(data: {
   aboutText: string;
   aboutAreas: string[];
+}) {
+  return prisma.siteSettings.upsert({
+    where: { id: SETTINGS_ID },
+    create: { id: SETTINGS_ID, ...data },
+    update: data,
+  });
+}
+
+export async function updateFeaturedSection(data: {
+  featuredTitle: string;
+  featuredSubtitle: string;
 }) {
   return prisma.siteSettings.upsert({
     where: { id: SETTINGS_ID },

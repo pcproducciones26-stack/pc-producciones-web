@@ -48,7 +48,7 @@ export function PastEventCard({ post }: { post: PublicInstagramPost }) {
   );
 
   const className =
-    "group relative block aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100";
+    "group relative block aspect-square w-full overflow-hidden rounded-2xl bg-neutral-900";
 
   if (post.postUrl) {
     return (

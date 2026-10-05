@@ -27,13 +27,15 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        dark ? "bg-white text-neutral-950 shadow-sm" : "bg-transparent text-white"
+        dark
+          ? "bg-neutral-950 text-white shadow-sm shadow-black/40"
+          : "bg-transparent text-white"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2">
         <a href="#top" className="flex items-center gap-2">
           <Image
-            src={dark ? "/logos/pc-negro.png" : "/logos/pc-blanco.png"}
+            src="/logos/pc-blanco.png"
             alt="PC Producciones — volver al inicio"
             width={340}
             height={113}
@@ -64,7 +66,7 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav className="flex flex-col gap-1 bg-white px-6 pb-6 text-neutral-950 md:hidden">
+        <nav className="flex flex-col gap-1 bg-neutral-950 px-6 pb-6 text-white md:hidden">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}

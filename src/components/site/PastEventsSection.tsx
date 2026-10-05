@@ -33,14 +33,14 @@ export function PastEventsSection() {
   return (
     <section
       id="eventos-pasados"
-      className="scroll-mt-24 bg-white py-24 sm:scroll-mt-36"
+      className="scroll-mt-24 border-t border-white/10 bg-neutral-950 py-24 sm:scroll-mt-36"
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Eventos pasados
           </h2>
-          <p className="mt-3 text-neutral-500">Shows que ya se hicieron</p>
+          <p className="mt-3 text-neutral-400">Shows que ya se hicieron</p>
         </div>
 
         {data && data.events.length > 0 && (
@@ -57,11 +57,11 @@ export function PastEventsSection() {
                   type="button"
                   disabled={page <= 1}
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium disabled:opacity-30"
+                  className="rounded-full border border-white/30 px-5 py-2 text-sm font-medium text-white disabled:opacity-30"
                 >
                   Anteriores
                 </button>
-                <span className="text-sm text-neutral-500">
+                <span className="text-sm text-neutral-400">
                   {data.page} / {data.totalPages}
                 </span>
                 <button
@@ -70,7 +70,7 @@ export function PastEventsSection() {
                   onClick={() =>
                     setPage((p) => Math.min(data.totalPages, p + 1))
                   }
-                  className="rounded-full border border-neutral-300 px-5 py-2 text-sm font-medium disabled:opacity-30"
+                  className="rounded-full border border-white/30 px-5 py-2 text-sm font-medium text-white disabled:opacity-30"
                 >
                   Siguientes
                 </button>
