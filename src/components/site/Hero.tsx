@@ -30,7 +30,7 @@ export function Hero({ videoUrl, title, subtitle, ctaLabel, ctaUrl }: Props) {
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">
           <span className="mb-4 block text-sm font-medium uppercase tracking-[0.3em] text-neutral-400 sm:text-base">
-            PC Producciones · Producciones Clandestinas
+            PC Producciones
           </span>
           {title}
         </h1>
