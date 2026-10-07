@@ -17,3 +17,11 @@ export type PublicInstagramPost = {
   venue: string | null;
   city: string | null;
 };
+
+export type EventsPage = {
+  events: PublicEvent[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};

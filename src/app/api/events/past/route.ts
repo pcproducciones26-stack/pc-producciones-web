@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { getEventsPage } from "@/lib/public-data";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -9,26 +9,5 @@ export async function GET(request: NextRequest) {
     Math.max(1, Number(searchParams.get("pageSize") ?? "9"))
   );
 
-  const where = {
-    status: "PUBLISHED" as const,
-    date: { lt: new Date() },
-  };
-
-  const [events, total] = await Promise.all([
-    prisma.event.findMany({
-      where,
-      orderBy: { date: "desc" },
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-    }),
-    prisma.event.count({ where }),
-  ]);
-
-  return NextResponse.json({
-    events,
-    total,
-    page,
-    pageSize,
-    totalPages: Math.max(1, Math.ceil(total / pageSize)),
-  });
+  return NextResponse.json(await getEventsPage("past", page, pageSize));
 }

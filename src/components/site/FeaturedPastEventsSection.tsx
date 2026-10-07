@@ -1,30 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { PastEventCard } from "./PastEventCard";
 import type { PublicInstagramPost } from "@/lib/types";
 
 type Props = {
   title: string;
   subtitle: string;
+  posts: PublicInstagramPost[];
 };
 
-export function FeaturedPastEventsSection({ title, subtitle }: Props) {
-  const [posts, setPosts] = useState<PublicInstagramPost[] | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/instagram-posts")
-      .then((res) => res.json())
-      .then((json: { posts: PublicInstagramPost[] }) => {
-        if (!cancelled) setPosts(json.posts);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (posts && posts.length === 0) {
+export function FeaturedPastEventsSection({ title, subtitle, posts }: Props) {
+  if (posts.length === 0) {
     return null;
   }
 
@@ -43,13 +27,11 @@ export function FeaturedPastEventsSection({ title, subtitle }: Props) {
           </p>
         </div>
 
-        {posts && posts.length > 0 && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <PastEventCard key={post.id} post={post} />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <PastEventCard key={post.id} post={post} />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -2,31 +2,29 @@
 
 import { useEffect, useState } from "react";
 import { EventCard } from "./EventCard";
-import type { PublicEvent } from "@/lib/types";
+import type { EventsPage } from "@/lib/types";
 
-type EventsResponse = {
-  events: PublicEvent[];
-  page: number;
-  totalPages: number;
-};
-
-export function PastEventsSection() {
-  const [data, setData] = useState<EventsResponse | null>(null);
-  const [page, setPage] = useState(1);
+export function PastEventsSection({ initialData }: { initialData: EventsPage }) {
+  const [fetched, setFetched] = useState<EventsPage | null>(null);
+  const [page, setPage] = useState(initialData.page);
 
   useEffect(() => {
+    if (page === initialData.page) return;
     let cancelled = false;
-    fetch(`/api/events/past?page=${page}&pageSize=9`)
+    fetch(`/api/events/past?page=${page}&pageSize=${initialData.pageSize}`)
       .then((res) => res.json())
-      .then((json: EventsResponse) => {
-        if (!cancelled) setData(json);
+      .then((json: EventsPage) => {
+        if (!cancelled) setFetched(json);
       });
     return () => {
       cancelled = true;
     };
-  }, [page]);
+  }, [page, initialData.page, initialData.pageSize]);
 
-  if (data && data.events.length === 0 && page === 1) {
+  const data =
+    page === initialData.page ? initialData : (fetched ?? initialData);
+
+  if (initialData.events.length === 0) {
     return null;
   }
 
@@ -43,7 +41,7 @@ export function PastEventsSection() {
           <p className="mt-3 text-neutral-400">Shows que ya se hicieron</p>
         </div>
 
-        {data && data.events.length > 0 && (
+        {data.events.length > 0 && (
           <>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {data.events.map((event) => (

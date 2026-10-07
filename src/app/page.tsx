@@ -9,7 +9,7 @@ import { InstagramFeed } from "@/components/site/InstagramFeed";
 import { ContactSection } from "@/components/site/ContactSection";
 import { Footer } from "@/components/site/Footer";
 import { getSiteSettings } from "@/lib/site-settings";
-import { prisma } from "@/lib/prisma";
+import { getEventsPage, getFeaturedPosts } from "@/lib/public-data";
 import {
   SITE_ALTERNATE_NAMES,
   SITE_DESCRIPTION,
@@ -36,11 +36,11 @@ export default async function Home() {
     featuredSubtitle,
   } = await getSiteSettings();
 
-  const upcomingEvents = await prisma.event.findMany({
-    where: { status: "PUBLISHED", date: { gte: new Date() } },
-    orderBy: { date: "asc" },
-    take: 20,
-  });
+  const [upcoming, past, featuredPosts] = await Promise.all([
+    getEventsPage("upcoming", 1, 9),
+    getEventsPage("past", 1, 9),
+    getFeaturedPosts(),
+  ]);
 
   const organization = {
     "@type": "Organization",
@@ -67,10 +67,10 @@ export default async function Home() {
         inLanguage: "es-AR",
         publisher: { "@id": `${SITE_URL}/#organization` },
       },
-      ...upcomingEvents.map((event) => ({
+      ...upcoming.events.map((event) => ({
         "@type": "Event",
         name: event.title,
-        startDate: event.date.toISOString(),
+        startDate: event.date,
         eventStatus: "https://schema.org/EventScheduled",
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
         location: { "@type": "Place", name: event.venue, address: event.venue },
@@ -102,11 +102,12 @@ export default async function Home() {
           ctaUrl={heroCtaUrl}
         />
         <ArtistsMarquee artists={marqueeArtists} />
-        <EventsSection />
-        <PastEventsSection />
+        <EventsSection initialData={upcoming} />
+        <PastEventsSection initialData={past} />
         <FeaturedPastEventsSection
           title={featuredTitle}
           subtitle={featuredSubtitle}
+          posts={featuredPosts}
         />
         <AboutSection text={aboutText} areas={aboutAreas} />
         <InstagramFeed />

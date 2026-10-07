@@ -1,13 +1,6 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { getFeaturedPosts } from "@/lib/public-data";
 
 export async function GET() {
-  const posts = await prisma.instagramPost.findMany({
-    orderBy: [
-      { eventDate: { sort: "desc", nulls: "last" } },
-      { postedAt: "desc" },
-    ],
-    take: 18,
-  });
-  return NextResponse.json({ posts });
+  return NextResponse.json({ posts: await getFeaturedPosts() });
 }

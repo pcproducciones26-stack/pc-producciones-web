@@ -1,13 +1,17 @@
 import type { PublicEvent } from "@/lib/types";
 
+// Se renderiza en el servidor (UTC) y en el navegador: fijar la zona horaria
+// evita que un show de noche aparezca con la fecha del dia siguiente.
+const TIME_ZONE = "America/Argentina/Buenos_Aires";
+
 function formatDate(iso: string) {
   const date = new Date(iso);
-  const day = date.toLocaleDateString("es-AR", { day: "2-digit" });
+  const day = date.toLocaleDateString("es-AR", { day: "2-digit", timeZone: TIME_ZONE });
   const month = date
-    .toLocaleDateString("es-AR", { month: "short" })
+    .toLocaleDateString("es-AR", { month: "short", timeZone: TIME_ZONE })
     .replace(".", "")
     .toUpperCase();
-  const year = date.getFullYear();
+  const year = date.toLocaleDateString("es-AR", { year: "numeric", timeZone: TIME_ZONE });
   return { day, month, year };
 }
 
