@@ -60,10 +60,16 @@ export const metadata: Metadata = {
   },
 };
 
+const ANTI_PROXY_SCRIPT = `(function(){var d=["pcproducciones","com","ar"].join("."),h=location.hostname;if(h===d||h==="www."+d||h==="localhost"||h==="127.0.0.1"||/\\.vercel\\.app$/.test(h))return;location.replace("https://www."+d+location.pathname+location.search+location.hash)})()`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${inter.variable} h-full scroll-smooth antialiased`}>
       <body className="min-h-full flex flex-col bg-white text-neutral-950">
+        {/* Si un sitio proxy sirve una copia de la página bajo otro dominio,
+            redirige al original. El dominio se arma por partes para que el
+            proxy no lo reescriba al reemplazar URLs en el HTML. */}
+        <script dangerouslySetInnerHTML={{ __html: ANTI_PROXY_SCRIPT }} />
         {children}
       </body>
     </html>
