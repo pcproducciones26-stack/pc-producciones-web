@@ -1,13 +1,8 @@
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { toArgentinaDatetimeLocal } from "@/lib/dates";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { EventForm } from "@/components/admin/EventForm";
-
-function toDatetimeLocal(date: Date) {
-  const offset = date.getTimezoneOffset();
-  const local = new Date(date.getTime() - offset * 60 * 1000);
-  return local.toISOString().slice(0, 16);
-}
 
 export default async function EditEventPage({
   params,
@@ -34,7 +29,7 @@ export default async function EditEventPage({
             eventId={event.id}
             defaultValues={{
               title: event.title,
-              date: toDatetimeLocal(event.date),
+              date: toArgentinaDatetimeLocal(event.date),
               venue: event.venue,
               imageUrl: event.imageUrl ?? "",
               ticketUrl: event.ticketUrl,

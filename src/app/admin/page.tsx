@@ -48,7 +48,9 @@ export default async function AdminDashboard() {
                     {event.title}
                   </td>
                   <td className="px-4 py-3 text-neutral-500">
-                    {new Date(event.date).toLocaleDateString("es-AR")}
+                    {new Date(event.date).toLocaleDateString("es-AR", {
+                      timeZone: "America/Argentina/Buenos_Aires",
+                    })}
                   </td>
                   <td className="px-4 py-3 text-neutral-500">{event.venue}</td>
                   <td className="px-4 py-3">

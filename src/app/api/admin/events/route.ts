@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { parseArgentinaDatetimeLocal } from "@/lib/dates";
 import { eventSchema } from "@/lib/validations";
 
 export async function GET() {
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
   const event = await prisma.event.create({
     data: {
       ...rest,
-      date: new Date(parsed.data.date),
+      date: parseArgentinaDatetimeLocal(parsed.data.date),
       imageUrl: imageUrl || null,
       description: description || null,
     },

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { parseArgentinaDatetimeLocal } from "@/lib/dates";
 import { eventSchema } from "@/lib/validations";
 
 type Params = { params: Promise<{ id: string }> };
@@ -32,7 +33,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
       where: { id },
       data: {
         ...rest,
-        date: new Date(parsed.data.date),
+        date: parseArgentinaDatetimeLocal(parsed.data.date),
         imageUrl: imageUrl || null,
         description: description || null,
       },
