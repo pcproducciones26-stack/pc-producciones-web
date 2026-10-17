@@ -18,6 +18,7 @@ import {
   SOCIAL_PROFILES,
   jsonLdScript,
 } from "@/lib/seo";
+import { toArgentinaIso } from "@/lib/dates";
 
 export const dynamic = "force-dynamic";
 
@@ -70,13 +71,27 @@ export default async function Home() {
       ...upcoming.events.map((event) => ({
         "@type": "Event",
         name: event.title,
-        startDate: event.date,
+        startDate: toArgentinaIso(event.date),
         eventStatus: "https://schema.org/EventScheduled",
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-        location: { "@type": "Place", name: event.venue, address: event.venue },
+        location: {
+          "@type": "Place",
+          name: event.venue,
+          address: {
+            "@type": "PostalAddress",
+            // El lugar se carga como "Sala, Ciudad": la ciudad es lo último.
+            addressLocality: event.venue.split(",").pop()!.trim(),
+            addressCountry: "AR",
+          },
+        },
         ...(event.imageUrl && { image: [event.imageUrl] }),
         description: event.description ?? `${event.title} — ${event.venue}`,
-        organizer: { "@id": `${SITE_URL}/#organization` },
+        organizer: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: SITE_NAME,
+          url: SITE_URL,
+        },
         offers: {
           "@type": "Offer",
           url: event.ticketUrl,

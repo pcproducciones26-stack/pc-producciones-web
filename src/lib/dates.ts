@@ -14,3 +14,8 @@ export function toArgentinaDatetimeLocal(date: Date) {
     .toISOString()
     .slice(0, 16);
 }
+
+// Date -> "2026-11-07T21:00:00-03:00" (ISO 8601 con el offset de Argentina)
+export function toArgentinaIso(date: Date | string) {
+  return `${toArgentinaDatetimeLocal(new Date(date))}:00${ARGENTINA_OFFSET}`;
+}
