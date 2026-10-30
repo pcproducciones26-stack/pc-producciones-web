@@ -10,6 +10,7 @@ import { ContactSection } from "@/components/site/ContactSection";
 import { Footer } from "@/components/site/Footer";
 import { getSiteSettings } from "@/lib/site-settings";
 import {
+  getBeholdPosts,
   getEventsPage,
   getFeaturedPosts,
   getLatestInstagramPosts,
@@ -41,12 +42,14 @@ export default async function Home() {
     featuredSubtitle,
   } = await getSiteSettings();
 
-  const [upcoming, past, featuredPosts, instagramPosts] = await Promise.all([
+  const [upcoming, past, featuredPosts, syncedPosts] = await Promise.all([
     getEventsPage("upcoming", 1, 9),
     getEventsPage("past", 1, 9),
     getFeaturedPosts(),
     getLatestInstagramPosts(),
   ]);
+  const instagramPosts =
+    syncedPosts.length > 0 ? syncedPosts : await getBeholdPosts();
 
   const organization = {
     "@type": "Organization",

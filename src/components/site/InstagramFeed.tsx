@@ -24,7 +24,7 @@ export function InstagramFeed({ posts }: { posts: PublicInstagramPost[] }) {
 
       <div className="mx-auto mt-12 max-w-6xl px-6">
         {posts.length > 0 ? (
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
             {posts.map((post) => (
               <a
                 key={post.id}
