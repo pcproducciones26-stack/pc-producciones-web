@@ -58,3 +58,22 @@ export async function getFeaturedPosts(): Promise<PublicInstagramPost[]> {
     city: post.city,
   }));
 }
+
+// Solo los que vienen del sync (externalId), no los cargados a mano en el admin.
+export async function getLatestInstagramPosts(): Promise<PublicInstagramPost[]> {
+  const posts = await prisma.instagramPost.findMany({
+    where: { externalId: { not: null } },
+    orderBy: { postedAt: "desc" },
+    take: 8,
+  });
+
+  return posts.map((post) => ({
+    id: post.id,
+    imageUrl: post.imageUrl,
+    postUrl: post.postUrl,
+    caption: post.caption,
+    eventDate: post.eventDate?.toISOString() ?? null,
+    venue: post.venue,
+    city: post.city,
+  }));
+}

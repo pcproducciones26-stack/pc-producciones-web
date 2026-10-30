@@ -9,7 +9,11 @@ import { InstagramFeed } from "@/components/site/InstagramFeed";
 import { ContactSection } from "@/components/site/ContactSection";
 import { Footer } from "@/components/site/Footer";
 import { getSiteSettings } from "@/lib/site-settings";
-import { getEventsPage, getFeaturedPosts } from "@/lib/public-data";
+import {
+  getEventsPage,
+  getFeaturedPosts,
+  getLatestInstagramPosts,
+} from "@/lib/public-data";
 import {
   SITE_ALTERNATE_NAMES,
   SITE_DESCRIPTION,
@@ -37,10 +41,11 @@ export default async function Home() {
     featuredSubtitle,
   } = await getSiteSettings();
 
-  const [upcoming, past, featuredPosts] = await Promise.all([
+  const [upcoming, past, featuredPosts, instagramPosts] = await Promise.all([
     getEventsPage("upcoming", 1, 9),
     getEventsPage("past", 1, 9),
     getFeaturedPosts(),
+    getLatestInstagramPosts(),
   ]);
 
   const organization = {
@@ -125,7 +130,7 @@ export default async function Home() {
           posts={featuredPosts}
         />
         <AboutSection text={aboutText} areas={aboutAreas} />
-        <InstagramFeed />
+        <InstagramFeed posts={instagramPosts} />
         <ContactSection contactEmail={contactEmail} />
       </main>
       <Footer />
